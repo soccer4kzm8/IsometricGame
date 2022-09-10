@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UniRx;
+using UniRx.Triggers;
 
-public class EnemyController : MonoBehaviour
+public class EnemyMove : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _attackRange;
     [SerializeField] private float _moveSpeed = 3f;
     private NavMeshAgent _navMeshAgent = null; 
 
@@ -11,6 +14,13 @@ public class EnemyController : MonoBehaviour
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         _navMeshAgent.speed = _moveSpeed;
+
+        _attackRange.OnTriggerEnterAsObservable()
+            .Where(x => x.gameObject.name == _player.name)
+            .Subscribe(_ => Debug.LogError("îÕàÕÇ…ì¸Ç¡ÇΩ"));
+        _attackRange.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == _player.name)
+            .Subscribe(_ => Debug.LogError("îÕàÕÇ©ÇÁèoÇΩ"));
     }
 
     void Update()
