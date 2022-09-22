@@ -14,6 +14,6 @@ public class InputEventProviderImpl : MonoBehaviour, IInputEventProvider
 
     private void Update()
     {
-        _moveDirection.SetValueAndForceNotify(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+        _moveDirection.SetValueAndForceNotify(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")));
     }
 }

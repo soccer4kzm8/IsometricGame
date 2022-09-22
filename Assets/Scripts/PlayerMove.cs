@@ -4,6 +4,7 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 4f;
     private IInputEventProvider _inputEventProvider;
+    private Vector3 test;
 
     private Vector3 forward, right;
     void Start()
@@ -20,8 +21,9 @@ public class PlayerMove : MonoBehaviour
         Vector3 rightMovement = right * _moveSpeed * Time.deltaTime * _inputEventProvider.MoveDirection.Value.x;
         Vector3 upMovement = forward * _moveSpeed * Time.deltaTime * _inputEventProvider.MoveDirection.Value.z;
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-        this.transform.forward = heading;
-        this.transform.position += rightMovement;
+		this.transform.forward = heading;
+
+		this.transform.position += rightMovement;
         this.transform.position += upMovement;
     }
 }

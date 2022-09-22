@@ -17,7 +17,7 @@ public class EnemyMove : MonoBehaviour
     {
         if(_navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
-            //_navMeshAgent.SetDestination(_player.transform.position);
-        }
+            _navMeshAgent.SetDestination(_player.transform.position);
+		}
     }
 }
