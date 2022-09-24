@@ -13,26 +13,22 @@ public class PlayerMove : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        Look();
-    }
-
 	private void FixedUpdate()
 	{
         Move();
-	}
+        Look();
+    }
 
-	private void Look()
+    private void Look()
 	{
         if (_inputEventProvider.MoveDirection.Value == Vector3.zero)
             return;
 
         var rot = Quaternion.LookRotation(Helpers.ToIso(_inputEventProvider.MoveDirection.Value), Vector3.up);
-        this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rot, _turnSpeed * Time.deltaTime);
+        this.transform.rotation = rot;
     }
 
-	private void Move()
+    private void Move()
 	{
         _rb.MovePosition(this.transform.position + this.transform.forward * _inputEventProvider.MoveDirection.Value.normalized.magnitude * _moveSpeed * Time.deltaTime);
     }
