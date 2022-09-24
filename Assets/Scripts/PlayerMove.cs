@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 4f;
-    [SerializeField] private float _turnSpeed = 90f;
+    [SerializeField] private float _turnSpeed = 360f;
     private IInputEventProvider _inputEventProvider;
     private Rigidbody _rb;
 
