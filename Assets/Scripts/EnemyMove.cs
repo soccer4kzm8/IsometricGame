@@ -13,7 +13,7 @@ public class EnemyMove : MonoBehaviour
         _navMeshAgent.speed = _moveSpeed;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(_navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
         {

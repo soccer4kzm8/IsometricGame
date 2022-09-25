@@ -438,7 +438,6 @@ GameObject:
   - component: {fileID: 2614271852122270654}
   - component: {fileID: 2672020637058382617}
   - component: {fileID: 2672020637058382622}
-  - component: {fileID: 2672020637058382621}
   - component: {fileID: 2672020637058382620}
   - component: {fileID: 8208032869905186638}
   m_Layer: 0
@@ -513,20 +512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _moveSpeed: 3
---- !u!114 &2672020637058382621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2672661050689435728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06a879ff4eb70ef4eb0c2300daa8934d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _attackRange: {fileID: 2672020636789231488}
 --- !u!195 &2672020637058382620
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -561,6 +546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914e1adae75c4154bae85920bc41f1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 0}
+  _attackRange: {fileID: 2672020636789231488}
 --- !u!1 &2672731900859387974
 GameObject:
   m_ObjectHideFlags: 0
