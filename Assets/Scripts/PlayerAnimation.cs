@@ -1,3 +1,5 @@
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -5,11 +7,22 @@ public class PlayerAnimation : MonoBehaviour
     private Vector3 _prePos;
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
+    private static readonly int HashIsHit = Animator.StringToHash("IsHit");
+
+    #region const
+    private const string ENEMY = "Enemy";
+    #endregion const
 
     private void Start()
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
+        this.OnCollisionEnterAsObservable()
+            .Where(x => x.gameObject.name == ENEMY)
+            .Subscribe(x => _animator.SetBool(HashIsHit, true));
+        this.OnCollisionExitAsObservable()
+            .Where(x => x.gameObject.name == ENEMY)
+            .Subscribe(x => _animator.SetBool(HashIsHit, false));
     }
 
     private void FixedUpdate()

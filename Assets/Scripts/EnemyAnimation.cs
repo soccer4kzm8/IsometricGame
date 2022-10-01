@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
+    #region SerializeField
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _attackRange;
+    #endregion SerializeField
+
     private Vector3 _prePos;
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
@@ -22,9 +25,9 @@ public class EnemyAnimation : MonoBehaviour
         _attackRange.OnTriggerExitAsObservable()
                     .Where(x => x.gameObject.name == _player.name)
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
-        this.gameObject.OnTriggerEnterAsObservable()
+        this.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-			.Subscribe(x => Debug.LogError("Œ•‚É“–‚½‚Á‚½"));
+            .Subscribe(x => Debug.LogError("Œ•‚É“–‚½‚Á‚½"));
     }
 
     private void FixedUpdate()
