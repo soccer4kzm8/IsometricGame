@@ -7,7 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     private Vector3 _prePos;
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
-    private static readonly int HashIsHit = Animator.StringToHash("IsHit");
+    private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
     #region const
     private const string ENEMY = "Enemy";
@@ -19,10 +19,10 @@ public class PlayerAnimation : MonoBehaviour
         _prePos = this.transform.position;
         this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
-            .Subscribe(x => _animator.SetBool(HashIsHit, true));
+            .Subscribe(x => _animator.SetBool(HashGetHit, true));
         this.OnCollisionExitAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
-            .Subscribe(x => _animator.SetBool(HashIsHit, false));
+            .Subscribe(x => _animator.SetBool(HashGetHit, false));
     }
 
     private void FixedUpdate()

@@ -14,6 +14,7 @@ public class EnemyAnimation : MonoBehaviour
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
+    private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
     private void Start()
     {
@@ -27,7 +28,10 @@ public class EnemyAnimation : MonoBehaviour
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(x => Debug.LogError("Œ•‚É“–‚½‚Á‚½"));
+            .Subscribe(x => _animator.SetBool(HashGetHit, true));
+        this.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == _sword.name)
+            .Subscribe(x => _animator.SetBool(HashGetHit, false));
     }
 
     private void FixedUpdate()
