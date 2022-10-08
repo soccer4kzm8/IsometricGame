@@ -17,17 +17,19 @@ public class EnemyAnimation : MonoBehaviour
 
     #region const
     private const string PLAYER = "Player";
+    private const float SIGHTANGLE = 30f;
+
     #endregion const
 
     private void Start()
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
-        _attackRange.OnTriggerEnterAsObservable()
-                    .Where(x => x.gameObject.name == PLAYER)
+        _attackRange.OnTriggerStayAsObservable()
+                    .Where(x => InSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, true));
-        _attackRange.OnTriggerExitAsObservable()
-                    .Where(x => x.gameObject.name == PLAYER)
+        _attackRange.OnTriggerStayAsObservable()
+                    .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
@@ -45,5 +47,35 @@ public class EnemyAnimation : MonoBehaviour
         float velocity = ((this.transform.position - _prePos) / Time.deltaTime).magnitude;
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
+    }
+
+    private bool InSight(Collider collider, float sightAngle)
+    {
+        if (collider.gameObject.name == PLAYER)
+        {
+            Vector3 posDelta = collider.transform.position - this.transform.position;
+            float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
+            if (targetAngle <= sightAngle)
+            {
+                Debug.LogError("”ÍˆÍ“à");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool OutSight(Collider collider, float sightAngle)
+    {
+        if (collider.gameObject.name == PLAYER)
+        {
+            Vector3 posDelta = collider.transform.position - this.transform.position;
+            float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
+            if (targetAngle > sightAngle)
+            {
+                Debug.LogError("”ÍˆÍŠO");
+                return true;
+            }
+        }
+        return false;
     }
 }

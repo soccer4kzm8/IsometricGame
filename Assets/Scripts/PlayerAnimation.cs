@@ -16,17 +16,18 @@ public class PlayerAnimation : MonoBehaviour
 
     #region const
     private const string ENEMY = "Enemy";
+    private const float SIGHTANGLE = 45f;
     #endregion const
 
     private void Start()
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
-        _attackRange.OnTriggerEnterAsObservable()
-                    .Where(x => x.gameObject.name == ENEMY)
+        _attackRange.OnTriggerStayAsObservable()
+                    .Where(x => InSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, true));
-        _attackRange.OnTriggerExitAsObservable()
-                    .Where(x => x.gameObject.name == ENEMY)
+        _attackRange.OnTriggerStayAsObservable()
+                    .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
@@ -44,5 +45,33 @@ public class PlayerAnimation : MonoBehaviour
         float velocity = ((this.transform.position - _prePos) / Time.deltaTime).magnitude;
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
+    }
+
+    private bool InSight(Collider collider, float sightAngle)
+    {
+        if (collider.gameObject.name == ENEMY)
+        {
+            Vector3 posDelta = collider.transform.position - this.transform.position;
+            float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
+            if (targetAngle <= sightAngle)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool OutSight(Collider collider, float sightAngle)
+    {
+        if (collider.gameObject.name == ENEMY)
+        {
+            Vector3 posDelta = collider.transform.position - this.transform.position;
+            float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
+            if (targetAngle > sightAngle)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
