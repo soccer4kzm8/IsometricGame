@@ -57,7 +57,6 @@ public class EnemyAnimation : MonoBehaviour
             float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
             if (targetAngle <= sightAngle)
             {
-                Debug.LogError("”ÍˆÍ“à");
                 return true;
             }
         }
@@ -72,7 +71,6 @@ public class EnemyAnimation : MonoBehaviour
             float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
             if (targetAngle > sightAngle)
             {
-                Debug.LogError("”ÍˆÍŠO");
                 return true;
             }
         }
