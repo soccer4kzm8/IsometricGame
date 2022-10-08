@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+    #region SerializeField
+    [SerializeField] private GameObject _attackRange;
+    #endregion SerializeField
+
     private Vector3 _prePos;
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
+    private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
     #region const
@@ -17,6 +22,12 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
+        _attackRange.OnTriggerEnterAsObservable()
+                    .Where(x => x.gameObject.name == ENEMY)
+                    .Subscribe(_ => _animator.SetBool(HashInRange, true));
+        _attackRange.OnTriggerExitAsObservable()
+                    .Where(x => x.gameObject.name == ENEMY)
+                    .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
             .Subscribe(x => _animator.SetBool(HashGetHit, true));

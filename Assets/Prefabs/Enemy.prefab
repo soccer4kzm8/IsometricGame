@@ -425,7 +425,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &2672661050689435728
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +497,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &2672020637058382622
 MonoBehaviour:
@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
+  _sword: {fileID: 0}
   _moveSpeed: 3
 --- !u!195 &2672020637058382620
 NavMeshAgent:
