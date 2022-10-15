@@ -31,10 +31,10 @@ public class PlayerAnimation : MonoBehaviour
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
-            .Subscribe(x => _animator.SetBool(HashGetHit, true));
+            .Subscribe(_ => _animator.SetBool(HashGetHit, true));
         this.OnCollisionExitAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
-            .Subscribe(x => _animator.SetBool(HashGetHit, false));
+            .Subscribe(_ => _animator.SetBool(HashGetHit, false));
     }
 
     private void FixedUpdate()

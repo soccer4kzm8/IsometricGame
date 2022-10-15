@@ -33,10 +33,10 @@ public class EnemyAnimation : MonoBehaviour
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(x => _animator.SetBool(HashGetHit, true));
+            .Subscribe(_ => _animator.SetBool(HashGetHit, true));
         this.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(x => _animator.SetBool(HashGetHit, false));
+            .Subscribe(_ => _animator.SetBool(HashGetHit, false));
     }
 
     private void FixedUpdate()
