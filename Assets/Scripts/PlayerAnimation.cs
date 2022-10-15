@@ -29,10 +29,10 @@ public class PlayerAnimation : MonoBehaviour
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
-        this.OnTriggerEnterAsObservable()
+        this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
             .Subscribe(x => _animator.SetBool(HashGetHit, true));
-        this.OnTriggerExitAsObservable()
+        this.OnCollisionExitAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
             .Subscribe(x => _animator.SetBool(HashGetHit, false));
     }

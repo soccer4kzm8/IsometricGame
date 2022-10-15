@@ -787,6 +787,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 6134730218629258411}
+    - target: {fileID: 395861961994985211, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4190226675534721450, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -839,6 +843,10 @@ PrefabInstance:
       propertyPath: _sword
       value: 
       objectReference: {fileID: 277048833}
+    - target: {fileID: 7983704515814856856, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
 --- !u!1 &6134730218629258411 stripped
