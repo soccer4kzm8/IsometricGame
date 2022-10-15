@@ -77,6 +77,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4195106654636812124}
+  - component: {fileID: 5868957665339553874}
+  - component: {fileID: 8490365730050222926}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -100,6 +102,35 @@ Transform:
   m_Father: {fileID: 4190226675534721450}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5868957665339553874
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193434065582562210}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &8490365730050222926
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193434065582562210}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Center: {x: -0.3, y: 0.1, z: 0}
 --- !u!1 &4193436748342486308
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,11 +422,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4190226675534721450}
   - component: {fileID: 4279784118854798440}
-  - component: {fileID: 4195092065763105999}
   - component: {fileID: 7983704515814856856}
   - component: {fileID: 395861961994985211}
   - component: {fileID: 2680535347274185901}
-  - component: {fileID: 5241395606798731618}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -441,19 +470,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!135 &4195092065763105999
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194022841255174022}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.6
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &7983704515814856856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sword: {fileID: 0}
   _attackRange: {fileID: 4195092064958670934}
+  _body: {fileID: 4193434065582562210}
 --- !u!114 &395861961994985211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +499,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _sword: {fileID: 0}
-  _moveSpeed: 3
 --- !u!195 &2680535347274185901
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -493,7 +509,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -505,22 +521,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &5241395606798731618
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194022841255174022}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &4194092729907165072
 GameObject:
   m_ObjectHideFlags: 0

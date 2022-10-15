@@ -15,7 +15,7 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
     #region const
-    private const string ENEMY = "Enemy";
+    private const string ENEMY = "Body";
     private const float SIGHTANGLE = 45f;
     #endregion const
 

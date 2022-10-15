@@ -7,6 +7,7 @@ public class EnemyAnimation : MonoBehaviour
     #region SerializeField
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _attackRange;
+    [SerializeField] private GameObject _body;
     #endregion SerializeField
 
     private Vector3 _prePos;
@@ -31,10 +32,10 @@ public class EnemyAnimation : MonoBehaviour
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
-        this.OnTriggerEnterAsObservable()
+        _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
-        this.OnTriggerExitAsObservable()
+        _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, false));
     }
@@ -45,6 +46,14 @@ public class EnemyAnimation : MonoBehaviour
             return;
 
         float velocity = ((this.transform.position - _prePos) / Time.deltaTime).magnitude;
+        if(velocity < 0.1f)
+        {
+            Debug.LogError($"position : {this.transform.position}");
+            Debug.LogError($"_prePos : {_prePos}");
+
+            Debug.LogError($"velocity : {velocity}");
+
+        }
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
     }
