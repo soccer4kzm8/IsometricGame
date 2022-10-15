@@ -499,6 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _sword: {fileID: 0}
+  _body: {fileID: 4193434065582562210}
 --- !u!195 &2680535347274185901
 NavMeshAgent:
   m_ObjectHideFlags: 0

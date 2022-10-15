@@ -40,20 +40,13 @@ public class EnemyAnimation : MonoBehaviour
             .Subscribe(_ => _animator.SetBool(HashGetHit, false));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (Mathf.Approximately(Time.deltaTime, 0))
             return;
 
         float velocity = ((this.transform.position - _prePos) / Time.deltaTime).magnitude;
-        if(velocity < 0.1f)
-        {
-            Debug.LogError($"position : {this.transform.position}");
-            Debug.LogError($"_prePos : {_prePos}");
-
-            Debug.LogError($"velocity : {velocity}");
-
-        }
+        
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
     }
