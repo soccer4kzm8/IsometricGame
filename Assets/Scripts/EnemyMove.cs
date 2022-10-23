@@ -16,10 +16,10 @@ public class EnemyMove : MonoBehaviour
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(x => _navMeshAgent.isStopped = true);
+            .Subscribe(_ => KnockBack());
         _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(x => _navMeshAgent.isStopped = false);
+            .Subscribe(_ => _navMeshAgent.isStopped = false);
     }
 
     void FixedUpdate()
@@ -28,5 +28,11 @@ public class EnemyMove : MonoBehaviour
         {
             _navMeshAgent.SetDestination(_player.transform.position);
 		}
+    }
+
+    private void KnockBack()
+	{
+        _navMeshAgent.isStopped = true;
+
     }
 }
