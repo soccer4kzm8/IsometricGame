@@ -33,6 +33,7 @@ public class EnemyMove : MonoBehaviour
     private void KnockBack()
 	{
         _navMeshAgent.isStopped = true;
-
+        //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
+        // ノックバックが終わったら、SetGetHit(true)
     }
 }

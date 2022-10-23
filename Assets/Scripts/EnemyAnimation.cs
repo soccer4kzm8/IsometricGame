@@ -35,9 +35,9 @@ public class EnemyAnimation : MonoBehaviour
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
-        _body.OnTriggerExitAsObservable()
-            .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(_ => _animator.SetBool(HashGetHit, false));
+        //_body.OnTriggerExitAsObservable()
+        //    .Where(x => x.gameObject.name == _sword.name)
+        //    .Subscribe(_ => _animator.SetBool(HashGetHit, false));
     }
 
     private void Update()
@@ -77,5 +77,10 @@ public class EnemyAnimation : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void SetGetHit(bool getHit)
+	{
+        _animator.SetBool(HashGetHit, getHit);
     }
 }
