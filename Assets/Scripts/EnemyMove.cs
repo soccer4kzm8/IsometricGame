@@ -9,17 +9,28 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _body;
 
-    private NavMeshAgent _navMeshAgent = null; 
+    private NavMeshAgent _navMeshAgent = null;
+    /// <summary>
+    /// 剣に当たったか
+    /// </summary>
+    private bool _getHit = false;
 
     void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(_ => KnockBack());
+            .Subscribe(_ => 
+            {
+                _getHit = true;
+                _navMeshAgent.isStopped = true;
+            });
         _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _navMeshAgent.isStopped = false);
+        this.UpdateAsObservable()
+            .Where(_ => _getHit == true)
+            .Subscribe(_ => KnockBack());
     }
 
     void FixedUpdate()
@@ -32,8 +43,8 @@ public class EnemyMove : MonoBehaviour
 
     private void KnockBack()
 	{
-        _navMeshAgent.isStopped = true;
         //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
         // ノックバックが終わったら、SetGetHit(true)
+
     }
 }
