@@ -16,10 +16,11 @@ public class EnemyAnimation : MonoBehaviour
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
+    public static int GetHashGetHit => HashGetHit;
+
     #region const
     private const string PLAYER = "Player";
     private const float SIGHTANGLE = 30f;
-
     #endregion const
 
     private void Start()
@@ -35,10 +36,10 @@ public class EnemyAnimation : MonoBehaviour
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
-        //_body.OnTriggerExitAsObservable()
-        //    .Where(x => x.gameObject.name == _sword.name)
-        //    .Subscribe(_ => _animator.SetBool(HashGetHit, false));
-    }
+		_body.OnTriggerExitAsObservable()
+			.Where(x => x.gameObject.name == _sword.name)
+			.Subscribe(_ => _animator.SetBool(HashGetHit, false));
+	}
 
     private void Update()
     {
