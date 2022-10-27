@@ -8,18 +8,25 @@ public class EnemyAnimation : MonoBehaviour
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _attackRange;
     [SerializeField] private GameObject _body;
-    #endregion SerializeField
+	#endregion SerializeField
 
-    private Vector3 _prePos;
+	#region private
+	private Vector3 _prePos;
     private Animator _animator;
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
+    private ReactiveProperty<int> _animationHash = new ReactiveProperty<int>();
+	#endregion private
 
-    public static int GetHashGetHit => HashGetHit;
+	#region public
+	public static int GetHashGetHit => HashGetHit;
 
-    #region const
-    private const string PLAYER = "Player";
+    public IReadOnlyReactiveProperty<int> AnimationHash => _animationHash;
+	#endregion public
+
+	#region const
+	private const string PLAYER = "Player";
     private const float SIGHTANGLE = 30f;
     #endregion const
 
@@ -50,6 +57,8 @@ public class EnemyAnimation : MonoBehaviour
         
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
+        Debug.LogError(HashSpeed);
+        //Debug.LogError(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
     }
 
     private bool InSight(Collider collider, float sightAngle)
