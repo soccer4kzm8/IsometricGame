@@ -16,13 +16,10 @@ public class EnemyAnimation : MonoBehaviour
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
-    private ReactiveProperty<int> _animationHash;
 	#endregion private
 
 	#region public
 	public static int GetHashGetHit => HashGetHit;
-
-    public IReadOnlyReactiveProperty<int> AnimationHash => _animationHash;
 	#endregion public
 
 	#region const
@@ -34,8 +31,6 @@ public class EnemyAnimation : MonoBehaviour
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
-        _animationHash = new ReactiveProperty<int>(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
-        //AnimationHash.Subscribe(x => Debug.LogError(x)).AddTo(this);
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => InSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, true));
@@ -59,8 +54,6 @@ public class EnemyAnimation : MonoBehaviour
         
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
-        //Debug.LogError(HashGetHit);
-        Debug.LogError(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
     }
 
     private bool InSight(Collider collider, float sightAngle)

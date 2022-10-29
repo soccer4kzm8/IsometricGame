@@ -5,22 +5,31 @@ using UnityEngine.AI;
 
 public class EnemyMove : MonoBehaviour
 {
+    #region SerializedField
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _body;
     [SerializeField] private float _moveSpeed = 4f;
+    #endregion SerialilzedField
 
+    #region private
     private NavMeshAgent _navMeshAgent = null;
     private Animator _animator;
     /// <summary>
     /// Œ•‚É“–‚½‚Á‚½‚©
     /// </summary>
     private bool _getHit = false;
+    #endregion private
 
-    void Start()
+    #region const
+    private const string GET_HIT = "GetHit";
+    #endregion const
+
+    private void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         _animator = this.GetComponent<Animator>();
+        var enemyAnimation = this.GetComponent<EnemyAnimation>();
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => 
@@ -28,16 +37,16 @@ public class EnemyMove : MonoBehaviour
                 _getHit = true;
                 _navMeshAgent.isStopped = true;
             });
-        //_body.OnTriggerExitAsObservable()
-        //    .Where(x => x.gameObject.name == _sword.name)
-        //    .Subscribe(_ => _navMeshAgent.isStopped = false);
+        _body.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == _sword.name)
+            .Where(_ => _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT) == false)
+            .Subscribe(_ => _navMeshAgent.isStopped = false);
         this.UpdateAsObservable()
-            .Where(_ => _getHit == true)
-            .TakeWhile(_ => _animator.GetBool(EnemyAnimation.GetHashGetHit) == true)
+            .Where(_ => _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT) == true)
             .Subscribe(_ => KnockBack());
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if(_navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
