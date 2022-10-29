@@ -49,6 +49,6 @@ public class EnemyMove : MonoBehaviour
 	{
         //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
         // ノックバックが終わったら、SetGetHit(true)
-        this.transform.Translate(-this.transform.forward * _moveSpeed * Time.deltaTime);
+        this.transform.Translate(_moveSpeed * Time.deltaTime * -this.transform.forward);
     }
 }

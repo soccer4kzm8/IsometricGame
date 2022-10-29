@@ -16,7 +16,7 @@ public class EnemyAnimation : MonoBehaviour
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
-    private ReactiveProperty<int> _animationHash = new ReactiveProperty<int>();
+    private ReactiveProperty<int> _animationHash;
 	#endregion private
 
 	#region public
@@ -34,6 +34,8 @@ public class EnemyAnimation : MonoBehaviour
     {
         _animator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
+        _animationHash = new ReactiveProperty<int>(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        //AnimationHash.Subscribe(x => Debug.LogError(x)).AddTo(this);
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => InSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, true));
@@ -43,10 +45,10 @@ public class EnemyAnimation : MonoBehaviour
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
-		_body.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject.name == _sword.name)
-			.Subscribe(_ => _animator.SetBool(HashGetHit, false));
-	}
+        _body.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == _sword.name)
+            .Subscribe(_ => _animator.SetBool(HashGetHit, false));
+    }
 
     private void Update()
     {
@@ -57,8 +59,8 @@ public class EnemyAnimation : MonoBehaviour
         
         _animator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
-        Debug.LogError(HashSpeed);
-        //Debug.LogError(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
+        //Debug.LogError(HashGetHit);
+        Debug.LogError(_animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
     }
 
     private bool InSight(Collider collider, float sightAngle)
