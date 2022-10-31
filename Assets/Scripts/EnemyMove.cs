@@ -14,15 +14,14 @@ public class EnemyMove : MonoBehaviour
 
     #region private
     private NavMeshAgent _navMeshAgent = null;
-    private Animator _animator;
     private Vector3 _nockBackVec;
+    private bool _duringKnockBack = false;
     #endregion private
 
 
     private void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
-        _animator = this.GetComponent<Animator>();
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
@@ -31,13 +30,13 @@ public class EnemyMove : MonoBehaviour
                 _navMeshAgent.isStopped = true;
                 _nockBackVec = -this.transform.forward;
             });
-        _body.OnTriggerExitAsObservable()
-            .Where(x => x.gameObject.name == _sword.name)
+        this.UpdateAsObservable()
+            .Where(_ => _duringKnockBack == true)
             .Where(_ => enemyAnimation.AnimationGetHit.Value == false)
             .Subscribe(_ => 
             {
-                Debug.LogError("navMeshAgent再開");
                 _navMeshAgent.isStopped = false;
+                _duringKnockBack = false;
             });
         this.UpdateAsObservable()
             .Where(_ => enemyAnimation.AnimationGetHit.Value == true)
@@ -58,5 +57,6 @@ public class EnemyMove : MonoBehaviour
         //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
         // ノックバックが終わったら、SetGetHit(true)
         this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
+        _duringKnockBack = true;
     }
 }
