@@ -15,15 +15,9 @@ public class EnemyMove : MonoBehaviour
     #region private
     private NavMeshAgent _navMeshAgent = null;
     private Animator _animator;
-    /// <summary>
-    /// 剣に当たったか
-    /// </summary>
-    private bool _getHit = false;
+    private Vector3 _nockBackVec;
     #endregion private
 
-    #region const
-    private const string GET_HIT = "GetHit";
-    #endregion const
 
     private void Start()
     {
@@ -34,17 +28,22 @@ public class EnemyMove : MonoBehaviour
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => 
             {
-                _getHit = true;
                 _navMeshAgent.isStopped = true;
+                _nockBackVec = -this.transform.forward;
             });
         _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Where(_ => _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT) == false)
-            .Subscribe(_ => _navMeshAgent.isStopped = false);
+            .Where(_ => enemyAnimation.AnimationGetHit.Value == false)
+            .Subscribe(_ => 
+            {
+                Debug.LogError("navMeshAgent再開");
+                _navMeshAgent.isStopped = false;
+            });
         this.UpdateAsObservable()
-            .Where(_ => _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT) == true)
+            .Where(_ => enemyAnimation.AnimationGetHit.Value == true)
             .Subscribe(_ => KnockBack());
     }
+
 
     private void FixedUpdate()
     {
@@ -58,6 +57,6 @@ public class EnemyMove : MonoBehaviour
 	{
         //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
         // ノックバックが終わったら、SetGetHit(true)
-        this.transform.Translate(_moveSpeed * Time.deltaTime * -this.transform.forward);
+        this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
     }
 }

@@ -13,18 +13,20 @@ public class EnemyAnimation : MonoBehaviour
 	#region private
 	private Vector3 _prePos;
     private Animator _animator;
+    private ReactiveProperty<bool> _animationGetHit = new ReactiveProperty<bool>();
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
-	#endregion private
+    #endregion private
 
-	#region public
-	public static int GetHashGetHit => HashGetHit;
+    #region public
+    public IReadOnlyReactiveProperty<bool> AnimationGetHit => _animationGetHit;
 	#endregion public
 
 	#region const
 	private const string PLAYER = "Player";
     private const float SIGHTANGLE = 30f;
+    private const string GET_HIT = "GetHit";
     #endregion const
 
     private void Start()
@@ -47,6 +49,8 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Update()
     {
+        _animationGetHit.Value = _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT);
+
         if (Mathf.Approximately(Time.deltaTime, 0))
             return;
 
