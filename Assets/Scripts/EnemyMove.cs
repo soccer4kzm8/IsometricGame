@@ -15,6 +15,9 @@ public class EnemyMove : MonoBehaviour
     #region private
     private NavMeshAgent _navMeshAgent = null;
     private Vector3 _nockBackVec;
+    /// <summary>
+    /// ノックバック中trueになるフラグ
+    /// </summary>
     private bool _duringKnockBack = false;
     #endregion private
 
@@ -29,6 +32,7 @@ public class EnemyMove : MonoBehaviour
             {
                 _navMeshAgent.isStopped = true;
                 _nockBackVec = -this.transform.forward;
+                Debug.DrawRay(this.transform.position, _nockBackVec, Color.blue, Mathf.Infinity);
             });
         this.UpdateAsObservable()
             .Where(_ => _duringKnockBack == true)
@@ -54,7 +58,6 @@ public class EnemyMove : MonoBehaviour
 
     private void KnockBack()
 	{
-        //いきなり位置移動させるんじゃなくて、Update()内で位置移動するようにする。UniRx使える？
         // ノックバックが終わったら、SetGetHit(true)
         this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
         _duringKnockBack = true;
