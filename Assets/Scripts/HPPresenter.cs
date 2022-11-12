@@ -7,7 +7,7 @@ public class HPPresenter : MonoBehaviour
     private HPView _hpView;
     void Start()
     {
-        _hPModel = this.GetComponent<HPModel>();
+        _hPModel = new HPModel(100);
         _hpView = this.GetComponent<HPView>();
         _hPModel.hpRP.Subscribe(damage => _hpView.SetGuage(_hPModel.hpMax, _hPModel.HP, damage));
     }
