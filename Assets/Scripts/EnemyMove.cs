@@ -9,7 +9,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _body;
-    [SerializeField] private float _moveSpeed = 4f;
+    [SerializeField] private float _moveSpeed = 1f;
     #endregion SerialilzedField
 
     #region private
@@ -31,8 +31,7 @@ public class EnemyMove : MonoBehaviour
             .Subscribe(_ => 
             {
                 _navMeshAgent.isStopped = true;
-                _nockBackVec = -this.transform.forward;
-                Debug.DrawRay(this.transform.position, _nockBackVec, Color.blue, Mathf.Infinity);
+                _nockBackVec = Vector3.back;
             });
         this.UpdateAsObservable()
             .Where(_ => _duringKnockBack == true)
@@ -44,6 +43,8 @@ public class EnemyMove : MonoBehaviour
             });
         this.UpdateAsObservable()
             .Where(_ => enemyAnimation.AnimationGetHit.Value == true)
+            //.AsUnitObservable()
+            //.BatchFrame(0, FrameCountType.FixedUpdate)
             .Subscribe(_ => KnockBack());
     }
 
