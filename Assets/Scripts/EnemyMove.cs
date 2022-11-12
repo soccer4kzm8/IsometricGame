@@ -43,8 +43,6 @@ public class EnemyMove : MonoBehaviour
             });
         this.UpdateAsObservable()
             .Where(_ => enemyAnimation.AnimationGetHit.Value == true)
-            //.AsUnitObservable()
-            //.BatchFrame(0, FrameCountType.FixedUpdate)
             .Subscribe(_ => KnockBack());
     }
 

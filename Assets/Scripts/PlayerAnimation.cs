@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     #region SerializeField
+    /// <summary>
+    /// 攻撃範囲
+    /// </summary>
     [SerializeField] private GameObject _attackRange;
     #endregion SerializeField
 
@@ -15,7 +18,13 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 
     #region const
+    /// <summary>
+    /// 敵の当たり判定部分
+    /// </summary>
     private const string ENEMY = "Body";
+    /// <summary>
+    /// 視界角度
+    /// </summary>
     private const float SIGHTANGLE = 45f;
     #endregion const
 
@@ -29,6 +38,9 @@ public class PlayerAnimation : MonoBehaviour
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
+        _attackRange.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == ENEMY)
+            .Subscribe(_ => _animator.SetBool(HashInRange, false));
         this.OnCollisionEnterAsObservable()
             .Where(x => x.gameObject.name == ENEMY)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
@@ -47,6 +59,12 @@ public class PlayerAnimation : MonoBehaviour
         _prePos = this.transform.position;
     }
 
+    /// <summary>
+    /// 当たったオブジェクトが視界内かどうか
+    /// </summary>
+    /// <param name="collider">当たったオブジェクトのcollider</param>
+    /// <param name="sightAngle">視界角度</param>
+    /// <returns></returns>
     private bool InSight(Collider collider, float sightAngle)
     {
         if (collider.gameObject.name == ENEMY)
@@ -61,11 +79,19 @@ public class PlayerAnimation : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// 当たったオブジェクトが視界外かどうか
+    /// </summary>
+    /// <param name="collider">当たったオブジェクトのcollider</param>
+    /// <param name="sightAngle">視界角度</param>
+    /// <returns></returns>
     private bool OutSight(Collider collider, float sightAngle)
     {
         if (collider.gameObject.name == ENEMY)
         {
+            // プレイヤーから敵に向かうベクトル
             Vector3 posDelta = collider.transform.position - this.transform.position;
+            // プレイヤーの前方方向ベクトルとプレイヤーから敵に向かうベクトルのなす角
             float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
             if (targetAngle > sightAngle)
             {
