@@ -39,6 +39,9 @@ public class EnemyAnimation : MonoBehaviour
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => OutSight(x, SIGHTANGLE))
                     .Subscribe(_ => _animator.SetBool(HashInRange, false));
+        _attackRange.OnTriggerExitAsObservable()
+           .Where(x => x.gameObject.name == PLAYER)
+           .Subscribe(_ => _animator.SetBool(HashInRange, false));
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _animator.SetBool(HashGetHit, true));
@@ -60,6 +63,12 @@ public class EnemyAnimation : MonoBehaviour
         _prePos = this.transform.position;
     }
 
+    /// <summary>
+    /// 当たったオブジェクトが視界内かどうか
+    /// </summary>
+    /// <param name="collider">当たったオブジェクトのcollider</param>
+    /// <param name="sightAngle">視界角度</param>
+    /// <returns></returns>
     private bool InSight(Collider collider, float sightAngle)
     {
         if (collider.gameObject.name == PLAYER)
@@ -74,6 +83,12 @@ public class EnemyAnimation : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// 当たったオブジェクトが視界外かどうか
+    /// </summary>
+    /// <param name="collider">当たったオブジェクトのcollider</param>
+    /// <param name="sightAngle">視界角度</param>
+    /// <returns></returns>
     private bool OutSight(Collider collider, float sightAngle)
     {
         if (collider.gameObject.name == PLAYER)
