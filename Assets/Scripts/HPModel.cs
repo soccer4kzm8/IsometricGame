@@ -1,22 +1,25 @@
+using UnityEngine;
 using UniRx;
 
-public class HPModel
+public class HPModel: MonoBehaviour
 {
     /// <summary>
-    /// Å‘åHP
+    /// ‘Ì—Í
     /// </summary>
-    public readonly int hpMax;
+    public IReadOnlyReactiveProperty<int> Health => _health;
 
-    public IntReactiveProperty hpRP = new IntReactiveProperty();
+    private readonly IntReactiveProperty _health = new IntReactiveProperty(100);
 
-    public int HP
-    {
-        get { return hpRP.Value; }
-        set { hpRP.Value = value; }
-    }
+    /// <summary>
+    /// ƒ_ƒ[ƒW‚ğó‚¯‚½‚Æ‚«‚Ìˆ—
+    /// </summary>
+    public void GetDamage()
+	{
+        _health.Value -= 10;
+	}
 
-    public HPModel(int hpMax)
-    {
-        this.hpMax = hpMax;
-    }
+	private void OnDestroy()
+	{
+        _health.Dispose();
+	}
 }
