@@ -1,5 +1,4 @@
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
@@ -17,23 +16,29 @@ public class PlayerAnimation : MonoBehaviour
 		_animator = this.GetComponent<Animator>();
 		_prePos = this.transform.position;
 		_collisionTriggerEventProvider.InSight
-			.Where(x => x == true)
-			.Subscribe(_ =>
+			.Subscribe(inSight => 
 			{
-				_animator.SetBool(HashInRange, true);
-			});
-		_collisionTriggerEventProvider.InSight
-			.Where(x => x == false)
-			.Subscribe(_ =>
-			{
-				_animator.SetBool(HashInRange, false);
+				if(inSight == true)
+				{
+					_animator.SetBool(HashInRange, true);
+				}
+				else
+				{
+					_animator.SetBool(HashInRange, false);
+				}
 			});
 		_collisionTriggerEventProvider.GetHit
-			.Where(x => x == true)
-			.Subscribe(_ => _animator.SetBool(HashGetHit, true));
-		_collisionTriggerEventProvider.GetHit
-			.Where(x => x == false)
-			.Subscribe(_ => _animator.SetBool(HashGetHit, false));
+			.Subscribe(getHit =>
+			{ 
+				if(getHit == true)
+				{
+					_animator.SetBool(HashGetHit, true);
+				}
+				else
+				{
+					_animator.SetBool(HashGetHit, false);
+				}
+			});
 	}
 
 	private void FixedUpdate()
