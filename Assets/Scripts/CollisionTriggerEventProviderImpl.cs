@@ -2,7 +2,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class CollisionTriggerEventProviderImpl : MonoBehaviour, ICollisionTriggerEventProvider
+public class CollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEventProvider, IInSightEventProvider
 {
 	#region SerializeField
 	/// <summary>

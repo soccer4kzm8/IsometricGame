@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-	private ICollisionTriggerEventProvider _collisionTriggerEventProvider;
+	private IGetHitEventProvider _getHitEventProvider;
+	private IInSightEventProvider _inSightEventProvider;
 	private Vector3 _prePos;
 	private Animator _animator;
 	private static readonly int HashSpeed = Animator.StringToHash("Speed");
@@ -12,10 +13,11 @@ public class PlayerAnimation : MonoBehaviour
 
 	private void Start()
 	{
-		_collisionTriggerEventProvider = this.GetComponent<ICollisionTriggerEventProvider>();
+		_getHitEventProvider = this.GetComponent<IGetHitEventProvider>();
+		_inSightEventProvider = this.GetComponent<IInSightEventProvider>();
 		_animator = this.GetComponent<Animator>();
 		_prePos = this.transform.position;
-		_collisionTriggerEventProvider.InSight
+		_inSightEventProvider.InSight
 			.Subscribe(inSight => 
 			{
 				if(inSight == true)
@@ -27,7 +29,7 @@ public class PlayerAnimation : MonoBehaviour
 					_animator.SetBool(HashInRange, false);
 				}
 			});
-		_collisionTriggerEventProvider.GetHit
+		_getHitEventProvider.GetHit
 			.Subscribe(getHit =>
 			{ 
 				if(getHit == true)
