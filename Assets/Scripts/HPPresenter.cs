@@ -10,7 +10,6 @@ public class HPPresenter : MonoBehaviour
 
     void Start()
     {
-        // test
         _getHitEventProvider = _player.GetComponent<IGetHitEventProvider>();
         _hPModel = this.GetComponent<HPModel>();
         _hpView = this.GetComponent<HPView>();
