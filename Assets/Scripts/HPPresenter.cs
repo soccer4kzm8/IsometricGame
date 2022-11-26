@@ -10,6 +10,7 @@ public class HPPresenter : MonoBehaviour
 
     void Start()
     {
+        // test
         _getHitEventProvider = _player.GetComponent<IGetHitEventProvider>();
         _hPModel = this.GetComponent<HPModel>();
         _hpView = this.GetComponent<HPView>();
@@ -19,6 +20,5 @@ public class HPPresenter : MonoBehaviour
             .Subscribe(_ => _hPModel.GetDamage());
         _hPModel.HP
             .Subscribe(hp => _hpView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
-        // test
     }
 }
