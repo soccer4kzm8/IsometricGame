@@ -4,22 +4,31 @@ using UniRx;
 public class HPModel: MonoBehaviour
 {
     /// <summary>
-    /// 体力
+    /// 最大HP
     /// </summary>
-    public IReadOnlyReactiveProperty<int> Health => _health;
+    public readonly int maxHP = 100;
 
-    private readonly IntReactiveProperty _health = new IntReactiveProperty(100);
+    /// <summary>
+    /// 残っているHP
+    /// </summary>
+    public IReadOnlyReactiveProperty<int> HP => _hp;
 
+    private readonly IntReactiveProperty _hp = new IntReactiveProperty();
+
+    private void Start()
+    {
+        _hp.Value = maxHP;
+    }
     /// <summary>
     /// ダメージを受けたときの処理
     /// </summary>
     public void GetDamage()
 	{
-        _health.Value -= 10;
+        _hp.Value -= 10;
 	}
 
 	private void OnDestroy()
 	{
-        _health.Dispose();
+        _hp.Dispose();
 	}
 }
