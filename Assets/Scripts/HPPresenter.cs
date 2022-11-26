@@ -19,5 +19,6 @@ public class HPPresenter : MonoBehaviour
             .Subscribe(_ => _hPModel.GetDamage());
         _hPModel.HP
             .Subscribe(hp => _hpView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
+        // test
     }
 }
