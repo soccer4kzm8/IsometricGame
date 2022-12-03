@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
+	[SerializeField] private HPModel _hPModel;
 	private IGetHitEventProvider _getHitEventProvider;
 	private IInSightEventProvider _inSightEventProvider;
 	private Vector3 _prePos;
@@ -10,6 +11,7 @@ public class PlayerAnimation : MonoBehaviour
 	private static readonly int HashSpeed = Animator.StringToHash("Speed");
 	private static readonly int HashInRange = Animator.StringToHash("InRange");
 	private static readonly int HashGetHit = Animator.StringToHash("GetHit");
+	private static readonly int HashIsDead = Animator.StringToHash("IsDead");
 
 	private void Start()
 	{
@@ -41,6 +43,10 @@ public class PlayerAnimation : MonoBehaviour
 					_animator.SetBool(HashGetHit, false);
 				}
 			});
+		_hPModel.HP
+			.Where(hp => hp <= 0)
+			.Subscribe(_ => _animator.SetBool(HashIsDead, true))
+			.AddTo(this);
 	}
 
 	private void FixedUpdate()
