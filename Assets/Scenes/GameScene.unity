@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: c754e2ddfe06ca84f99e11c8d74b89c0, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -1586,6 +1586,10 @@ PrefabInstance:
     - target: {fileID: 4194022841255174022, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194022841255174022, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7983704515814856856, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: _sword

@@ -44,6 +44,7 @@ public class PlayerAnimation : MonoBehaviour
 				}
 			});
 		_hPModel.HP
+			.Skip(1)
 			.Where(hp => hp <= 0)
 			.Subscribe(_ => _animator.SetBool(HashIsDead, true))
 			.AddTo(this);
