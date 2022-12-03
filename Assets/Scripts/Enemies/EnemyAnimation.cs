@@ -8,11 +8,12 @@ public class EnemyAnimation : MonoBehaviour
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _attackRange;
     [SerializeField] private GameObject _body;
-	#endregion SerializeField
+    [SerializeField] private Animator _playerAnimator;
+    #endregion SerializeField
 
-	#region private
-	private Vector3 _prePos;
-    private Animator _animator;
+    #region private
+    private Vector3 _prePos;
+    private Animator _enemyAnimator;
     private ReactiveProperty<bool> _animationGetHit = new ReactiveProperty<bool>();
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
@@ -31,35 +32,36 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Start()
     {
-        _animator = this.GetComponent<Animator>();
+        _enemyAnimator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => InSight(x, SIGHTANGLE))
-                    .Subscribe(_ => _animator.SetBool(HashInRange, true));
+                    .Subscribe(_ => _enemyAnimator.SetBool(HashInRange, true));
         _attackRange.OnTriggerStayAsObservable()
                     .Where(x => OutSight(x, SIGHTANGLE))
-                    .Subscribe(_ => _animator.SetBool(HashInRange, false));
+                    .Subscribe(_ => _enemyAnimator.SetBool(HashInRange, false));
         _attackRange.OnTriggerExitAsObservable()
            .Where(x => x.gameObject.name == PLAYER)
-           .Subscribe(_ => _animator.SetBool(HashInRange, false));
+           .Subscribe(_ => _enemyAnimator.SetBool(HashInRange, false));
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(_ => _animator.SetBool(HashGetHit, true));
+            .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
+            .Subscribe(_ => _enemyAnimator.SetBool(HashGetHit, true));
         _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Subscribe(_ => _animator.SetBool(HashGetHit, false));
+            .Subscribe(_ => _enemyAnimator.SetBool(HashGetHit, false));
     }
 
     private void Update()
     {
-        _animationGetHit.Value = _animator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT);
+        _animationGetHit.Value = _enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName(GET_HIT);
 
         if (Mathf.Approximately(Time.deltaTime, 0))
             return;
 
         float velocity = ((this.transform.position - _prePos) / Time.deltaTime).magnitude;
-        
-        _animator.SetFloat(HashSpeed, velocity);
+
+        _enemyAnimator.SetFloat(HashSpeed, velocity);
         _prePos = this.transform.position;
     }
 
@@ -101,10 +103,5 @@ public class EnemyAnimation : MonoBehaviour
             }
         }
         return false;
-    }
-
-    public void SetGetHit(bool getHit)
-	{
-        _animator.SetBool(HashGetHit, getHit);
     }
 }

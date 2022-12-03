@@ -1539,6 +1539,10 @@ PrefabInstance:
       propertyPath: _moveSpeed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 395861961994985211, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: _playerAnimator
+      value: 
+      objectReference: {fileID: 6134730218629258413}
     - target: {fileID: 4190226675534721450, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1599,10 +1603,19 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7983704515814856856, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: _playerAnimator
+      value: 
+      objectReference: {fileID: 6134730218629258413}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
 --- !u!1 &6134730218629258411 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6805460533238837583, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+  m_PrefabInstance: {fileID: 816043155465203172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6134730218629258413 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5958459796148578510, guid: 489f448ff6b0869458d17bf596746655, type: 3}
   m_PrefabInstance: {fileID: 816043155465203172}
   m_PrefabAsset: {fileID: 0}

@@ -10,6 +10,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _body;
     [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private Animator _playerAnimator;
     #endregion SerialilzedField
 
     #region private
@@ -28,6 +29,7 @@ public class EnemyMove : MonoBehaviour
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
+            .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
             .Subscribe(_ => 
             {
                 _navMeshAgent.isStopped = true;
