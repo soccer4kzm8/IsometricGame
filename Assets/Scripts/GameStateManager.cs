@@ -20,7 +20,6 @@ public class GameStateManager : MonoBehaviour
             .Subscribe(_ =>
             {
                 _state.Value = GameState.Result;
-                Debug.LogError("Ž€–S");
             })
             .AddTo(this);
     }
