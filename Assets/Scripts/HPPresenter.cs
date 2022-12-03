@@ -5,19 +5,19 @@ public class HPPresenter : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     private HPModel _hPModel;
-    private HPView _hpView;
+    private HPView _hPView;
     private IGetHitEventProvider _getHitEventProvider;
 
     void Start()
     {
         _getHitEventProvider = _player.GetComponent<IGetHitEventProvider>();
         _hPModel = this.GetComponent<HPModel>();
-        _hpView = this.GetComponent<HPView>();
+        _hPView = this.GetComponent<HPView>();
 
         _getHitEventProvider.GetHit
             .Where(getHit => getHit == true)
             .Subscribe(_ => _hPModel.GetDamage());
         _hPModel.HP
-            .Subscribe(hp => _hpView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
+            .Subscribe(hp => _hPView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
     }
 }
