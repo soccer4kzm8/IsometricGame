@@ -9,6 +9,16 @@ public class CollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEventProv
 	/// UŒ‚”ÍˆÍ
 	/// </summary>
 	[SerializeField] private GameObject _attackRange;
+
+	/// <summary>
+	/// ‘Šè‚ÌUŒ‚ƒp[ƒc–¼
+	/// </summary>
+	[SerializeField] private string _opponentAttackPartsName;
+
+	/// <summary>
+	/// ‹ŠEŠp“x
+	/// </summary>
+	[SerializeField] private float _sightAngle;
 	#endregion SerializeField
 
 	private readonly ReactiveProperty<bool> _inSight = new ReactiveProperty<bool>();
@@ -17,35 +27,24 @@ public class CollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEventProv
 	public IReadOnlyReactiveProperty<bool> InSight => _inSight;
 	public IReadOnlyReactiveProperty<bool> GetHit => _getHit;
 
-	#region const
-	/// <summary>
-	/// “G‚Ì“–‚½‚è”»’è•”•ª
-	/// </summary>
-	private const string ENEMY = "Body";
-	/// <summary>
-	/// ‹ŠEŠp“x
-	/// </summary>
-	private const float SIGHTANGLE = 45f;
-
-	#endregion const
 	void Start()
 	{
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == ENEMY)
-					.Where(x => InSightCheck(x, SIGHTANGLE) == true)
+					.Where(x => x.gameObject.name == _opponentAttackPartsName)
+					.Where(x => InSightCheck(x, _sightAngle) == true)
 					.Subscribe(_ => _inSight.Value = true);
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == ENEMY)
-					.Where(x => InSightCheck(x, SIGHTANGLE) == false)
+					.Where(x => x.gameObject.name == _opponentAttackPartsName)
+					.Where(x => InSightCheck(x, _sightAngle) == false)
 					.Subscribe(_ => _inSight.Value = false);
 		_attackRange.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject.name == ENEMY)
+			.Where(x => x.gameObject.name == _opponentAttackPartsName)
 			.Subscribe(_ => _inSight.Value = false);
 		this.OnCollisionEnterAsObservable()
-			.Where(x => x.gameObject.name == ENEMY)
+			.Where(x => x.gameObject.name == _opponentAttackPartsName)
 			.Subscribe(_ => _getHit.Value = true);
 		this.OnCollisionExitAsObservable()
-			.Where(x => x.gameObject.name == ENEMY)
+			.Where(x => x.gameObject.name == _opponentAttackPartsName)
 			.Subscribe(_ => _getHit.Value = false);
 	}
 

@@ -2399,6 +2399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRange: {fileID: 7318283299543649095}
+  _opponentAttackPartsName: Body
+  _sightAngle: 45
 --- !u!1 &7114982988566411449
 GameObject:
   m_ObjectHideFlags: 0
