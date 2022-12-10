@@ -6,7 +6,9 @@ public class HPModel: MonoBehaviour, IHPModel
     /// <summary>
     /// ç≈ëÂHP
     /// </summary>
-    public readonly int maxHP = 100;
+    [SerializeField] private int _maxHP = 0;
+
+    public int MaxHP => _maxHP;
 
     /// <summary>
     /// écÇ¡ÇƒÇ¢ÇÈHP
@@ -17,7 +19,7 @@ public class HPModel: MonoBehaviour, IHPModel
 
     private void Start()
     {
-        _hp.Value = maxHP;
+        _hp.Value = _maxHP;
     }
 
     /// <summary>

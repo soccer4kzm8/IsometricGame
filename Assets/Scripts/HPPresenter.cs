@@ -18,6 +18,6 @@ public class HPPresenter : MonoBehaviour
             .Where(getHit => getHit == true)
             .Subscribe(_ => _hPModel.GetDamage(10));
         _hPModel.HP
-            .Subscribe(hp => _hPView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
+            .Subscribe(hp => _hPView.SetGuage(_hPModel.MaxHP, hp)).AddTo(this);
     }
 }
