@@ -1,7 +1,7 @@
 using UnityEngine;
 using UniRx;
 
-public class HPModel: MonoBehaviour
+public class HPModel: MonoBehaviour, IHPModel
 {
     /// <summary>
     /// 最大HP
@@ -19,12 +19,14 @@ public class HPModel: MonoBehaviour
     {
         _hp.Value = maxHP;
     }
+
     /// <summary>
-    /// ダメージを受けたときの処理
+    /// ダメージ受けた時の処理
     /// </summary>
-    public void GetDamage()
+    /// <param name="attackPoint">相手の攻撃力</param>
+    public void GetDamage(int attackPoint)
 	{
-        _hp.Value -= 10;
+        _hp.Value -= attackPoint;
 	}
 
 	private void OnDestroy()

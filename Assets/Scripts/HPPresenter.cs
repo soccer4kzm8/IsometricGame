@@ -16,7 +16,7 @@ public class HPPresenter : MonoBehaviour
 
         _getHitEventProvider.GetHit
             .Where(getHit => getHit == true)
-            .Subscribe(_ => _hPModel.GetDamage());
+            .Subscribe(_ => _hPModel.GetDamage(10));
         _hPModel.HP
             .Subscribe(hp => _hPView.SetGuage(_hPModel.maxHP, hp)).AddTo(this);
     }
