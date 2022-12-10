@@ -59,7 +59,6 @@ public class EnemyMove : MonoBehaviour
 
     private void KnockBack()
 	{
-        // ノックバックが終わったら、SetGetHit(true)
         this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
         _duringKnockBack = true;
     }
