@@ -9,6 +9,7 @@ public class EnemyAnimation : MonoBehaviour
     [SerializeField] private GameObject _attackRange;
     [SerializeField] private GameObject _body;
     [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private HPModel _hPModel;
     #endregion SerializeField
 
     #region private
@@ -18,6 +19,7 @@ public class EnemyAnimation : MonoBehaviour
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
+    private static readonly int HashIsDead = Animator.StringToHash("IsDead");
     #endregion private
 
     #region public
@@ -50,6 +52,15 @@ public class EnemyAnimation : MonoBehaviour
         _body.OnTriggerExitAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Subscribe(_ => _enemyAnimator.SetBool(HashGetHit, false));
+        _hPModel.HP
+            .Skip(1)
+            .Where(hp => hp <= 0)
+            .Subscribe(_ =>
+            {
+                _enemyAnimator.SetBool(HashIsDead, true);
+            })
+            .AddTo(this);
+
     }
 
     private void Update()

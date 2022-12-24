@@ -487,6 +487,7 @@ MonoBehaviour:
   _attackRange: {fileID: 4195092064958670934}
   _body: {fileID: 4193434065582562210}
   _playerAnimator: {fileID: 0}
+  _hPModel: {fileID: 7409976805534472951}
 --- !u!114 &395861961994985211
 MonoBehaviour:
   m_ObjectHideFlags: 0
