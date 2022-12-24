@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-	[SerializeField] private HPModel _hPModel;
-	private IGetHitEventProvider _getHitEventProvider;
+    #region SerializeField
+    [SerializeField] private HPModel _hPModel;
+    #endregion SerializeField
+
+    #region private
+    private IGetHitEventProvider _getHitEventProvider;
 	private IInSightEventProvider _inSightEventProvider;
 	private Vector3 _prePos;
 	private Animator _animator;
@@ -12,8 +16,9 @@ public class PlayerAnimation : MonoBehaviour
 	private static readonly int HashInRange = Animator.StringToHash("InRange");
 	private static readonly int HashGetHit = Animator.StringToHash("GetHit");
 	private static readonly int HashIsDead = Animator.StringToHash("IsDead");
+    #endregion private
 
-	private void Start()
+    private void Start()
 	{
 		_getHitEventProvider = this.GetComponent<IGetHitEventProvider>();
 		_inSightEventProvider = this.GetComponent<IInSightEventProvider>();
