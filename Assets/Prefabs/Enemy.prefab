@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 2680535347274185901}
   - component: {fileID: 7409976805534472951}
   - component: {fileID: 7295479499530601806}
+  - component: {fileID: 6971700181751000065}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -484,10 +485,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 914e1adae75c4154bae85920bc41f1f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sword: {fileID: 0}
-  _attackRange: {fileID: 4195092064958670934}
-  _body: {fileID: 4193434065582562210}
-  _playerAnimator: {fileID: 0}
   _hPModel: {fileID: 7409976805534472951}
 --- !u!114 &395861961994985211
 MonoBehaviour:
@@ -554,11 +551,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRange: {fileID: 4195092064958670934}
-  _opponentAttackPartsName: Sword
+  _opponentAttackParts: {fileID: 0}
   _opponentDamagedParts: {fileID: 0}
   _sightAngle: 45
   _damagedParts: {fileID: 4193434065582562210}
   _opponentAnimator: {fileID: 0}
+--- !u!114 &6971700181751000065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194022841255174022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8e205c186daf147b52aeaac99ba3d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 4194022841255174022}
 --- !u!1 &4194092729907165072
 GameObject:
   m_ObjectHideFlags: 0

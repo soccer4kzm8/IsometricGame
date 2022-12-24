@@ -7,14 +7,17 @@ public class EnemyHPPresenter : MonoBehaviour
     private HPModel _hPModel;
     private IGetHitEventProvider _getHitEventProvider;
 
-    void Start()
+    private void Start()
     {
         _getHitEventProvider = _enemy.GetComponent<IGetHitEventProvider>();
         _hPModel = this.GetComponent<HPModel>();
 
         _getHitEventProvider.GetHit
             .Where(getHit => getHit == true)
-            .Subscribe(_ => _hPModel.GetDamage(10));
+            .Subscribe(_ =>
+            {
+                _hPModel.GetDamage(10);
+            });
         
     }
 }
