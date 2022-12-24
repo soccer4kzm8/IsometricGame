@@ -1612,6 +1612,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3479548928274803674, guid: 8333c3da2df4a1c4d9cfa18e3540950d, type: 3}
   m_PrefabInstance: {fileID: 1956937592}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2010228432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4193434065582562210, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+  m_PrefabInstance: {fileID: 4195092066309551513}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2019590833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1656,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1045895568058315795, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: _opponentAttackParts
+      value: 
+      objectReference: {fileID: 2010228432}
+    - target: {fileID: 1045895568058315795, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: _opponentDamagedParts
+      value: 
+      objectReference: {fileID: 2010228432}
     - target: {fileID: 3881259276770646026, guid: 489f448ff6b0869458d17bf596746655, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1864,6 +1877,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7295479499530601806, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: _opponentAnimator
+      value: 
+      objectReference: {fileID: 6134730218629258413}
+    - target: {fileID: 7295479499530601806, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: _opponentAttackParts
+      value: 
+      objectReference: {fileID: 277048833}
+    - target: {fileID: 7295479499530601806, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
+      propertyPath: _opponentDamagedParts
+      value: 
+      objectReference: {fileID: 6134730218629258411}
     - target: {fileID: 7983704515814856856, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: _sword
       value: 

@@ -13,7 +13,12 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 	/// <summary>
 	/// 相手の攻撃パーツ名
 	/// </summary>
-	[SerializeField] private string _opponentAttackPartsName;
+	[SerializeField] private GameObject _opponentAttackParts;
+
+	/// <summary>
+	/// 相手の攻撃を受けるパーツ
+	/// </summary>
+	[SerializeField] private GameObject _opponentDamagedParts;
 
 	/// <summary>
 	/// 視界角度
@@ -39,22 +44,22 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
     void Start()
     {
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == _opponentAttackPartsName)
+					.Where(x => x.gameObject == _opponentDamagedParts)
 					.Where(x => InSightCheck(x, _sightAngle) == true)
 					.Subscribe(_ => _inSight.Value = true);
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == _opponentAttackPartsName)
+					.Where(x => x.gameObject == _opponentDamagedParts)
 					.Where(x => InSightCheck(x, _sightAngle) == false)
 					.Subscribe(_ => _inSight.Value = false);
 		_attackRange.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject.name == _opponentAttackPartsName)
+			.Where(x => x.gameObject == _opponentDamagedParts)
 			.Subscribe(_ => _inSight.Value = false);
 		_damagedParts.OnTriggerEnterAsObservable()
-			.Where(x => x.gameObject.name == _opponentAttackPartsName)
+			.Where(x => x.gameObject == _opponentAttackParts)
 			.Where(_ => _opponentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
 			.Subscribe(_ => _getHit.Value = true);
 		_damagedParts.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject.name == _opponentAttackPartsName)
+			.Where(x => x.gameObject == _opponentAttackParts)
 			.Subscribe(_ => _getHit.Value = false);
 	}
 

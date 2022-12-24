@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 395861961994985211}
   - component: {fileID: 2680535347274185901}
   - component: {fileID: 7409976805534472951}
+  - component: {fileID: 7295479499530601806}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -540,6 +541,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHP: 10
+--- !u!114 &7295479499530601806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194022841255174022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b162536fe187949bcb5f8e953ebcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackRange: {fileID: 4195092064958670934}
+  _opponentAttackPartsName: Sword
+  _opponentDamagedParts: {fileID: 0}
+  _sightAngle: 45
+  _damagedParts: {fileID: 4193434065582562210}
+  _opponentAnimator: {fileID: 0}
 --- !u!1 &4194092729907165072
 GameObject:
   m_ObjectHideFlags: 0
