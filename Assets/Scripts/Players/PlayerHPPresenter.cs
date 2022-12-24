@@ -1,7 +1,7 @@
 using UnityEngine;
 using UniRx;
 
-public class HPPresenter : MonoBehaviour
+public class PlayerHPPresenter : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
     private HPModel _hPModel;
