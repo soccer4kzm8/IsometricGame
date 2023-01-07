@@ -67,7 +67,16 @@ public class EnemyAnimation : MonoBehaviour
                 _enemyAnimator.SetBool(HashIsDead, true);
             })
             .AddTo(this);
-
+        ObservableStateMachineTrigger trigger = _enemyAnimator.GetBehaviour<ObservableStateMachineTrigger>();
+        trigger.OnStateUpdateAsObservable()
+            .Where(onStateInfo => onStateInfo.Animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+            .Where(onStateInfo => onStateInfo.Animator.IsInTransition(0) == false)
+            .Where(onStateInfo => onStateInfo.StateInfo.normalizedTime > 1)
+            .Take(1)
+            .Subscribe(_ =>
+            {
+                Debug.LogError("死亡アニメーション終了");
+            }).AddTo(this);
     }
 
     private void Update()
