@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UniRx;
 
 public class HPModel: MonoBehaviour, IHPModel
 {
     /// <summary>
-    /// Å‘åHP
+    /// æœ€å¤§HP
     /// </summary>
     [SerializeField] private int _maxHP = 0;
 
     public int MaxHP => _maxHP;
 
     /// <summary>
-    /// c‚Á‚Ä‚¢‚éHP
+    /// æ®‹ã£ã¦ã„ã‚‹HP
     /// </summary>
     public IReadOnlyReactiveProperty<int> HP => _hp;
 
@@ -23,9 +23,9 @@ public class HPModel: MonoBehaviour, IHPModel
     }
 
     /// <summary>
-    /// ƒ_ƒ[ƒWó‚¯‚½‚Ìˆ—
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸæ™‚ã®å‡¦ç†
     /// </summary>
-    /// <param name="attackPoint">‘Šè‚ÌUŒ‚—Í</param>
+    /// <param name="attackPoint">ç›¸æ‰‹ã®æ”»æ’ƒåŠ›</param>
     public void GetDamage(int attackPoint)
 	{
         _hp.Value -= attackPoint;
