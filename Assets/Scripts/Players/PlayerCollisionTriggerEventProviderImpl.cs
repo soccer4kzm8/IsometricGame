@@ -6,22 +6,22 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 {
 	#region SerializeField
 	/// <summary>
-	/// UŒ‚”ÍˆÍ
+	/// æ”»æ’ƒç¯„å›²
 	/// </summary>
 	[SerializeField] private GameObject _attackRange;
 
 	/// <summary>
-	/// ‘Šè‚ÌUŒ‚ƒp[ƒc
+	/// ç›¸æ‰‹ã®æ”»æ’ƒãƒ‘ãƒ¼ãƒ„
 	/// </summary>
 	[SerializeField] private GameObject _opponentAttackParts;
 
 	/// <summary>
-	/// ‘Šè‚ÌUŒ‚‚ğó‚¯‚éƒp[ƒc
+	/// ç›¸æ‰‹ã®æ”»æ’ƒã‚’å—ã‘ã‚‹ãƒ‘ãƒ¼ãƒ„
 	/// </summary>
 	[SerializeField] private GameObject _opponentDamagedParts;
 
 	/// <summary>
-	/// ‹ŠEŠp“x
+	/// è¦–ç•Œè§’åº¦
 	/// </summary>
 	[SerializeField] private float _sightAngle;
 	#endregion SerializeField
@@ -54,10 +54,10 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 	}
 
 	/// <summary>
-	/// “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ª‹ŠE“à‚©‚Ç‚¤‚©
+	/// å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦–ç•Œå†…ã‹ã©ã†ã‹
 	/// </summary>
-	/// <param name="collider">“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìcollider</param>
-	/// <param name="sightAngle">‹ŠEŠp“x</param>
+	/// <param name="collider">å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®collider</param>
+	/// <param name="sightAngle">è¦–ç•Œè§’åº¦</param>
 	/// <returns></returns>
 	private bool InSightCheck(Collider collider, float sightAngle)
 	{

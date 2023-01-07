@@ -1,4 +1,4 @@
-using UniRx;
+ï»¿using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
@@ -6,32 +6,32 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 {
     #region SerializeField
     /// <summary>
-	/// UŒ‚”ÍˆÍ
+	/// æ”»æ’ƒç¯„å›²
 	/// </summary>
 	[SerializeField] private GameObject _attackRange;
 
 	/// <summary>
-	/// ‘Šè‚ÌUŒ‚ƒp[ƒc–¼
+	/// ç›¸æ‰‹ã®æ”»æ’ƒãƒ‘ãƒ¼ãƒ„å
 	/// </summary>
 	[SerializeField] private GameObject _opponentAttackParts;
 
 	/// <summary>
-	/// ‘Šè‚ÌUŒ‚‚ğó‚¯‚éƒp[ƒc
+	/// ç›¸æ‰‹ã®æ”»æ’ƒã‚’å—ã‘ã‚‹ãƒ‘ãƒ¼ãƒ„
 	/// </summary>
 	[SerializeField] private GameObject _opponentDamagedParts;
 
 	/// <summary>
-	/// ‹ŠEŠp“x
+	/// è¦–ç•Œè§’åº¦
 	/// </summary>
 	[SerializeField] private float _sightAngle;
 
 	/// <summary>
-	/// UŒ‚‚ğó‚¯‚éƒp[ƒc
+	/// æ”»æ’ƒã‚’å—ã‘ã‚‹ãƒ‘ãƒ¼ãƒ„
 	/// </summary>
 	[SerializeField] private GameObject _damagedParts;
 
 	/// <summary>
-	/// ‘Šè‚ÌƒAƒjƒ[ƒ^[
+	/// ç›¸æ‰‹ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼
 	/// </summary>
 	[SerializeField] private Animator _opponentAnimator;
 	#endregion SerializeField
@@ -64,10 +64,10 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 	}
 
 	/// <summary>
-	/// “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ª‹ŠE“à‚©‚Ç‚¤‚©
+	/// å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒè¦–ç•Œå†…ã‹ã©ã†ã‹
 	/// </summary>
-	/// <param name="collider">“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìcollider</param>
-	/// <param name="sightAngle">‹ŠEŠp“x</param>
+	/// <param name="collider">å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®collider</param>
+	/// <param name="sightAngle">è¦–ç•Œè§’åº¦</param>
 	/// <returns></returns>
 	private bool InSightCheck(Collider collider, float sightAngle)
 	{

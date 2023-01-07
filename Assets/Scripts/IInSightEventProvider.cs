@@ -1,9 +1,9 @@
-using UniRx;
+ï»¿using UniRx;
 
 public interface IInSightEventProvider
 {
     /// <summary>
-    /// ‹ŠE“à‚©‚Ç‚¤‚©
+    /// è¦–ç•Œå†…ã‹ã©ã†ã‹
     /// </summary>
     IReadOnlyReactiveProperty<bool> InSight { get; }
 }

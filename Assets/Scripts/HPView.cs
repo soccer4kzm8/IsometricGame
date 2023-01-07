@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class HPView : MonoBehaviour
 {
     /// <summary>
-    /// HPƒQ[ƒW
+    /// HPã‚²ãƒ¼ã‚¸
     /// </summary>
     private Slider _hpGuage;
 
@@ -14,10 +14,10 @@ public class HPView : MonoBehaviour
     }
 
     /// <summary>
-    /// HPƒQ[ƒW‚Ìİ’è
+    /// HPã‚²ãƒ¼ã‚¸ã®è¨­å®š
     /// </summary>
-    /// <param name="maxHP">Å‘åHP</param>
-    /// <param name="hp">c‚Á‚Ä‚¢‚éHP</param>
+    /// <param name="maxHP">æœ€å¤§HP</param>
+    /// <param name="hp">æ®‹ã£ã¦ã„ã‚‹HP</param>
     public void SetGuage(int maxHP, float hp)
     {
         _hpGuage.value = hp / maxHP;

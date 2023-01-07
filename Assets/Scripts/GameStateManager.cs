@@ -1,11 +1,11 @@
-using UniRx;
+ï»¿using UniRx;
 using UnityEngine;
 
 public class GameStateManager : MonoBehaviour
 {
     [SerializeField] private HPModel _hPModel;
     /// <summary>
-    /// ƒQ[ƒ€ƒXƒe[ƒg‚ğŠÄ‹
+    /// ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ç›£è¦–
     /// </summary>
     private readonly ReactiveProperty<GameState> _state = new ReactiveProperty<GameState>(GameState.Playing);
     public IReadOnlyReactiveProperty<GameState> State => _state;

@@ -1,4 +1,4 @@
-using UniRx;
+ï»¿using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,7 +17,7 @@ public class EnemyMove : MonoBehaviour
     private NavMeshAgent _navMeshAgent = null;
     private Vector3 _nockBackVec;
     /// <summary>
-    /// ƒmƒbƒNƒoƒbƒN’†true‚É‚È‚éƒtƒ‰ƒO
+    /// ãƒãƒƒã‚¯ãƒãƒƒã‚¯ä¸­trueã«ãªã‚‹ãƒ•ãƒ©ã‚°
     /// </summary>
     private bool _duringKnockBack = false;
     #endregion private

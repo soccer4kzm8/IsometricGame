@@ -3,7 +3,7 @@ using UniRx;
 public interface IGetHitEventProvider
 {
 	/// <summary>
-	/// UŒ‚‚ğ‹ò‚ç‚Á‚½‚©
+	/// æ”»æ’ƒã‚’å–°ã‚‰ã£ãŸã‹
 	/// </summary>
 	IReadOnlyReactiveProperty<bool> GetHit { get; }
 }

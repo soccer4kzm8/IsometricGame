@@ -3,18 +3,18 @@ using UniRx;
 public interface IHPModel
 {
     /// <summary>
-    /// Å‘åHP
+    /// æœ€å¤§HP
     /// </summary>
     int MaxHP { get; }
 
     /// <summary>
-    /// Žc‚Á‚Ä‚¢‚éHP
+    /// æ®‹ã£ã¦ã„ã‚‹HP
     /// </summary>
     IReadOnlyReactiveProperty<int> HP { get; }
 
     /// <summary>
-    /// ƒ_ƒ[ƒWŽó‚¯‚½Žž‚Ìˆ—
+    /// ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸæ™‚ã®å‡¦ç†
     /// </summary>
-    /// <param name="attackPoint">‘ŠŽè‚ÌUŒ‚—Í</param>
+    /// <param name="attackPoint">ç›¸æ‰‹ã®æ”»æ’ƒåŠ›</param>
     void GetDamage(int attackPoint);
 }
