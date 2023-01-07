@@ -3,14 +3,13 @@ using UniRx;
 
 public class EnemyHPPresenter : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy;
-    private HPModel _hPModel;
+    private IHPModel _hPModel;
     private IGetHitEventProvider _getHitEventProvider;
 
     private void Start()
     {
-        _getHitEventProvider = _enemy.GetComponent<IGetHitEventProvider>();
-        _hPModel = this.GetComponent<HPModel>();
+        _getHitEventProvider = this.GetComponent<IGetHitEventProvider>();
+        _hPModel = this.GetComponent<IHPModel>();
 
         _getHitEventProvider.GetHit
             .Where(getHit => getHit == true)

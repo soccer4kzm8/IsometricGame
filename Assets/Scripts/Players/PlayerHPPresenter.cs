@@ -4,14 +4,14 @@ using UniRx;
 public class PlayerHPPresenter : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
-    private HPModel _hPModel;
+    private IHPModel _hPModel;
     private HPView _hPView;
     private IGetHitEventProvider _getHitEventProvider;
 
     void Start()
     {
         _getHitEventProvider = _player.GetComponent<IGetHitEventProvider>();
-        _hPModel = this.GetComponent<HPModel>();
+        _hPModel = this.GetComponent<IHPModel>();
         _hPView = this.GetComponent<HPView>();
 
         _getHitEventProvider.GetHit
