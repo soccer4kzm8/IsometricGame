@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyAnimation : MonoBehaviour
 {
-    #region SerializeField
-    [SerializeField] private HPModel _hPModel;
-    #endregion SerializeField
-
     #region private
     private IGetHitEventProvider _getHitEventProvider;
     private IInSightEventProvider _inSightEventProvider;
@@ -37,6 +33,8 @@ public class EnemyAnimation : MonoBehaviour
         _inSightEventProvider = this.GetComponent<IInSightEventProvider>();
         _enemyAnimator = this.GetComponent<Animator>();
         _prePos = this.transform.position;
+
+        var enemyStateManager = this.GetComponent<EnemyStateManager>();
         _inSightEventProvider.InSight
             .Subscribe(inSight =>
             {
@@ -62,9 +60,8 @@ public class EnemyAnimation : MonoBehaviour
                     _enemyAnimator.SetBool(HashGetHit, false);
                 }
             });
-        _hPModel.HP
-            .Skip(1)
-            .Where(hp => hp <= 0)
+        enemyStateManager.State
+            .Where(state => state == EnemyState.Dead)
             .Subscribe(_ =>
             {
                 _enemyAnimator.SetBool(HashIsDead, true);
