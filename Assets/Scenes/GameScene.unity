@@ -1656,6 +1656,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 262900519227346350, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1045895568058315795, guid: 489f448ff6b0869458d17bf596746655, type: 3}
       propertyPath: _opponentAttackParts
       value: 
@@ -1668,6 +1672,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 4773581083516197924, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154105136215514529, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860935664026687787, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6141233002452380661, guid: 489f448ff6b0869458d17bf596746655, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1723,6 +1739,10 @@ PrefabInstance:
     - target: {fileID: 6805460533238837583, guid: 489f448ff6b0869458d17bf596746655, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829223863056102076, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 489f448ff6b0869458d17bf596746655, type: 3}

@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    #region SerializeField
-    [SerializeField] private HPModel _hPModel;
-    #endregion SerializeField
-
     #region private
     private IGetHitEventProvider _getHitEventProvider;
 	private IInSightEventProvider _inSightEventProvider;
@@ -50,11 +46,7 @@ public class PlayerAnimation : MonoBehaviour
 					_playerAnimator.SetBool(HashGetHit, false);
 				}
 			});
-		//_hPModel.HP
-		//	.Skip(1)
-		//	.Where(hp => hp <= 0)
-		//	.Subscribe(_ => _playerAnimator.SetBool(HashIsDead, true))
-		//	.AddTo(this);
+		
         playerStateManager.State
             .Where(state => state == PlayerState.Dead)
             .Subscribe(_ =>
