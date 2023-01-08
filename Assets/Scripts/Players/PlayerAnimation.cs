@@ -24,6 +24,8 @@ public class PlayerAnimation : MonoBehaviour
 		_inSightEventProvider = this.GetComponent<IInSightEventProvider>();
 		_playerAnimator = this.GetComponent<Animator>();
 		_prePos = this.transform.position;
+
+        var playerStateManager = this.GetComponent<PlayerStateManager>();
 		_inSightEventProvider.InSight
 			.Subscribe(inSight => 
 			{
@@ -48,12 +50,19 @@ public class PlayerAnimation : MonoBehaviour
 					_playerAnimator.SetBool(HashGetHit, false);
 				}
 			});
-		_hPModel.HP
-			.Skip(1)
-			.Where(hp => hp <= 0)
-			.Subscribe(_ => _playerAnimator.SetBool(HashIsDead, true))
-			.AddTo(this);
-	}
+		//_hPModel.HP
+		//	.Skip(1)
+		//	.Where(hp => hp <= 0)
+		//	.Subscribe(_ => _playerAnimator.SetBool(HashIsDead, true))
+		//	.AddTo(this);
+        playerStateManager.State
+            .Where(state => state == PlayerState.Dead)
+            .Subscribe(_ =>
+            {
+                _playerAnimator.SetBool(HashIsDead, true);
+            })
+            .AddTo(this);
+    }
 
 	private void FixedUpdate()
 	{

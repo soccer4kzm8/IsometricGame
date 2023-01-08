@@ -11,16 +11,6 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 	[SerializeField] private GameObject _attackRange;
 
 	/// <summary>
-	/// 相手の攻撃パーツ名
-	/// </summary>
-	[SerializeField] private GameObject _opponentAttackParts;
-
-	/// <summary>
-	/// 相手の攻撃を受けるパーツ
-	/// </summary>
-	[SerializeField] private GameObject _opponentDamagedParts;
-
-	/// <summary>
 	/// 視界角度
 	/// </summary>
 	[SerializeField] private float _sightAngle;
@@ -64,33 +54,33 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
     /// <summary>
     /// 相手の攻撃パーツ
     /// </summary>
-    private const string OPPONENT_ATTACK_PART = "Body";
+    private const string OPPONENT_ATTACK_PART = "Sword";
 
     /// <summary>
     /// 相手の攻撃を受けるパーツ
     /// </summary>
-    private const string OPPONENT_DAMADED_PART = "Body";
+    private const string OPPONENT_DAMADED_PART = "Player";
     #endregion 定数
 
     void Start()
     {
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject == _opponentDamagedParts)
+					.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
 					.Where(x => InSightCheck(x, _sightAngle) == true)
 					.Subscribe(_ => _inSight.Value = true);
 		_attackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject == _opponentDamagedParts)
+					.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
 					.Where(x => InSightCheck(x, _sightAngle) == false)
 					.Subscribe(_ => _inSight.Value = false);
 		_attackRange.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject == _opponentDamagedParts)
+			.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
 			.Subscribe(_ => _inSight.Value = false);
 		_damagedParts.OnTriggerEnterAsObservable()
-			.Where(x => x.gameObject == _opponentAttackParts)
+			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
 			.Where(_ => _opponentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
 			.Subscribe(_ => _getHit.Value = true);
 		_damagedParts.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject == _opponentAttackParts)
+			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
 			.Subscribe(_ => _getHit.Value = false);
 	}
 
