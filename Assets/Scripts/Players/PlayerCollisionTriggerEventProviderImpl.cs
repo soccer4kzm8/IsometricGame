@@ -56,23 +56,33 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 	{
         // 敵の攻撃を受けるパーツが視界内にあるかどうか
         _playerAttackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
-					.Where(x => InSightCheck(x, _sightAngle) == true)
+					.Where(collider => collider.gameObject.name == OPPONENT_DAMADED_PART)
+					.Where(collider => InSightCheck(collider, _sightAngle) == true)
+                    .Where(collider => IsDeadCheck(collider.transform.parent.GetComponent<EnemyStateManager>()) == false)
 					.Subscribe(_ =>
                     {
                         _inSight.Value = true;
                     });
         _playerAttackRange.OnTriggerStayAsObservable()
-					.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
-					.Where(x => InSightCheck(x, _sightAngle) == false)
+					.Where(collider => collider.gameObject.name == OPPONENT_DAMADED_PART)
+					.Where(collider => InSightCheck(collider, _sightAngle) == false)
 					.Subscribe(_ => 
                     {
                         _inSight.Value = false;
                     });
 
+        // 敵が死亡したら視界内に居ないことに
+        _playerAttackRange.OnTriggerStayAsObservable()
+            .Where(collider => collider.gameObject.name == OPPONENT_DAMADED_PART)
+            .Where(collider => IsDeadCheck(collider.transform.parent.GetComponent<EnemyStateManager>()) == true)
+            .Subscribe(_ => 
+            {
+                _inSight.Value = false;
+            });
+
         // 敵の攻撃を受けるパーツが攻撃範囲から出て行った
         _playerAttackRange.OnTriggerExitAsObservable()
-			.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
+			.Where(collider => collider.gameObject.name == OPPONENT_DAMADED_PART)
 			.Subscribe(_ =>
             {
                 _inSight.Value = false;
@@ -80,10 +90,14 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 
         // プレイヤー自身に敵の攻撃パーツがあったかどうか
 		this.OnCollisionEnterAsObservable()
-			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
-			.Subscribe(_ => _getHit.Value = true);
+			.Where(collision => collision.gameObject.name == OPPONENT_ATTACK_PART)
+            .Where(collision => IsDeadCheck(collision.transform.parent.GetComponent<EnemyStateManager>()) == false)
+			.Subscribe(_ => 
+            {
+                _getHit.Value = true;
+            });
 		this.OnCollisionExitAsObservable()
-			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
+			.Where(collision => collision.gameObject.name == OPPONENT_ATTACK_PART)
 			.Subscribe(_ => _getHit.Value = false);
 	}
 
@@ -103,4 +117,23 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 		}
 		return false;
 	}
+
+
+    /// <summary>
+    /// 当たったオブジェクトが敵の場合、死んでいるかどうか
+    /// </summary>
+    /// <param name="enemyStateManager">当たったオブジェクトのenemyStateManager</param>
+    /// <returns></returns>
+    private bool IsDeadCheck(EnemyStateManager enemyStateManager) 
+    {
+        if(enemyStateManager != null)
+        {
+            var enemyState = enemyStateManager.State.Value;
+            if(enemyState == EnemyState.Dead)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
