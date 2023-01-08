@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameStateManager : MonoBehaviour
 {
     #region SerializeField
-    [SerializeField] private HPModel _playerHPModel;
+    [SerializeField] private PlayerStateManager _playerStateManager;
     #endregion SerializeField
 
     #region private変数
@@ -25,10 +25,9 @@ public class GameStateManager : MonoBehaviour
     {
         _state.AddTo(this);
 
-        // プレイヤーのHPが0以下になったら、リザルト画面を表示
-        _playerHPModel.HP
-            .Skip(1)
-            .Where(hp => hp <= 0)
+        // プレイヤーが死亡したら、リザルト画面を表示
+        _playerStateManager.State
+            .Where(state => state == PlayerState.Dead)
             .Subscribe(_ =>
             {
                 _state.Value = GameState.Result;

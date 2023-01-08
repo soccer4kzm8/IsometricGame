@@ -1531,6 +1531,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerHPModel: {fileID: 816043155465203173}
+  _playerStateManager: {fileID: 6134730218629258421}
 --- !u!4 &1802375439
 Transform:
   m_ObjectHideFlags: 0
@@ -1929,3 +1930,14 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5958459796148578510, guid: 489f448ff6b0869458d17bf596746655, type: 3}
   m_PrefabInstance: {fileID: 816043155465203172}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6134730218629258421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5414979942765314119, guid: 489f448ff6b0869458d17bf596746655, type: 3}
+  m_PrefabInstance: {fileID: 816043155465203172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6134730218629258411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf075596e2cbc2a4bbd017e012f47271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
