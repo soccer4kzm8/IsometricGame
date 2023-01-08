@@ -2398,8 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bae64b88def64c49bc4c4967db68ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackRange: {fileID: 7318283299543649095}
-  _opponentAttackPartsName: Body
+  _playerAttackRange: {fileID: 7318283299543649095}
   _sightAngle: 45
 --- !u!1 &7114982988566411449
 GameObject:
