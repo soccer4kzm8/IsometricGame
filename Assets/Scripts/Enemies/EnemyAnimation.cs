@@ -14,6 +14,7 @@ public class EnemyAnimation : MonoBehaviour
     private Vector3 _prePos;
     private Animator _enemyAnimator;
     private ReactiveProperty<bool> _animationGetHit = new ReactiveProperty<bool>();
+    private ReactiveProperty<bool> _animationDie = new ReactiveProperty<bool>();
     private static readonly int HashSpeed = Animator.StringToHash("Speed");
     private static readonly int HashInRange = Animator.StringToHash("InRange");
     private static readonly int HashGetHit = Animator.StringToHash("GetHit");
@@ -22,10 +23,12 @@ public class EnemyAnimation : MonoBehaviour
 
     #region public
     public IReadOnlyReactiveProperty<bool> AnimationGetHit => _animationGetHit;
-	#endregion public
+    public IReadOnlyReactiveProperty<bool> AnimationDie => _animationDie;
+    #endregion public
 
-	#region const
+    #region const
     private const string GET_HIT = "GetHit";
+    private const string DIE = "Die";
     #endregion const
 
     private void Start()
@@ -69,14 +72,15 @@ public class EnemyAnimation : MonoBehaviour
             .AddTo(this);
         ObservableStateMachineTrigger trigger = _enemyAnimator.GetBehaviour<ObservableStateMachineTrigger>();
         trigger.OnStateUpdateAsObservable()
-            .Where(onStateInfo => onStateInfo.Animator.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+            .Where(onStateInfo => onStateInfo.Animator.GetCurrentAnimatorStateInfo(0).IsName(DIE))
             .Where(onStateInfo => onStateInfo.Animator.IsInTransition(0) == false)
             .Where(onStateInfo => onStateInfo.StateInfo.normalizedTime > 1)
             .Take(1)
             .Subscribe(_ =>
             {
-                Debug.LogError("死亡アニメーション終了");
-            }).AddTo(this);
+                _animationDie.Value = true;
+            })
+            .AddTo(this);
     }
 
     private void Update()
