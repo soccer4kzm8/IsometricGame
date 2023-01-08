@@ -1,4 +1,4 @@
-﻿using UniRx;
+using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
@@ -34,12 +34,43 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 	/// 相手のアニメーター
 	/// </summary>
 	[SerializeField] private Animator _opponentAnimator;
-	#endregion SerializeField
-	private readonly ReactiveProperty<bool> _inSight = new ReactiveProperty<bool>();
-    private readonly ReactiveProperty<bool> _getHit = new ReactiveProperty<bool>();
+    #endregion SerializeField
 
+    #region private変数
+    /// <summary>
+    /// 視界内に敵が居るかを監視
+    /// </summary>
+    private readonly ReactiveProperty<bool> _inSight = new ReactiveProperty<bool>();
+    
+    /// <summary>
+    /// 攻撃を受けたかを監視
+    /// </summary>
+    private readonly ReactiveProperty<bool> _getHit = new ReactiveProperty<bool>();
+    #endregion private変数
+
+    #region public変数
+    /// <summary>
+    /// 視界内に敵が居るか
+    /// </summary>
     public IReadOnlyReactiveProperty<bool> InSight => _inSight;
+
+    /// <summary>
+    ///  攻撃を受けたか
+    /// </summary>
     public IReadOnlyReactiveProperty<bool> GetHit => _getHit;
+    #endregion public変数
+
+    #region 定数
+    /// <summary>
+    /// 相手の攻撃パーツ
+    /// </summary>
+    private const string OPPONENT_ATTACK_PART = "Body";
+
+    /// <summary>
+    /// 相手の攻撃を受けるパーツ
+    /// </summary>
+    private const string OPPONENT_DAMADED_PART = "Body";
+    #endregion 定数
 
     void Start()
     {
