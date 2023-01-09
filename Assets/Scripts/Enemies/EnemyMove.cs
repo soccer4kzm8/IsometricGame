@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
     #region SerializedField
-    [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _enemyBody;
     [SerializeField] private float _moveSpeed = 1f;
@@ -25,9 +24,12 @@ public class EnemyMove : MonoBehaviour
     /// ノックバック中trueになるフラグ
     /// </summary>
     private bool _duringKnockBack = false;
+
+    private Transform _playerTransform;
     #endregion private変数
 
     #region 定数
+    private const string PLAYER_TAG = "Player";
     /// <summary>
     /// プレイヤーの攻撃アニメーション名
     /// </summary>
@@ -35,6 +37,7 @@ public class EnemyMove : MonoBehaviour
     #endregion 定数
     private void Start()
     {
+        _playerTransform = GameObject.FindWithTag(PLAYER_TAG).transform;
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
 
@@ -76,7 +79,7 @@ public class EnemyMove : MonoBehaviour
     {
         if(_navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
-            _navMeshAgent.SetDestination(_player.transform.position);
+            _navMeshAgent.SetDestination(_playerTransform.position);
 		}
     }
 

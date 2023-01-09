@@ -1823,14 +1823,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6134730218629258411}
     - target: {fileID: 395861961994985211, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 395861961994985211, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
-      propertyPath: _moveSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 395861961994985211, guid: 78c70dd6af9866a4188657f1f3093c24, type: 3}
       propertyPath: _playerAnimator
       value: 
       objectReference: {fileID: 6134730218629258413}
