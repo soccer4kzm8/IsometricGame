@@ -2,21 +2,38 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    #region SerializeField
+    /// <summary>
+    /// 速度
+    /// </summary>
     [SerializeField] private float _moveSpeed = 4f;
+
+    /// <summary>
+    /// 回転速度
+    /// </summary>
     [SerializeField] private float _turnSpeed = 360f;
+    #endregion SerializeField
+
+    #region private変数
     private IInputEventProvider _inputEventProvider;
     private Rigidbody _rb;
+    private PlayerStateManager _playerStateManager;
+    #endregion private変数
 
     private void Start()
     {
         _inputEventProvider = GetComponent<IInputEventProvider>();
         _rb = GetComponent<Rigidbody>();
+        _playerStateManager = GetComponent<PlayerStateManager>();
     }
 
-	private void FixedUpdate()
+    private void FixedUpdate()
 	{
-        Move();
-        Look();
+        if(_playerStateManager.State.Value == PlayerState.Alive)
+        {
+            Move();
+            Look();
+        }
     }
 
     private void Look()

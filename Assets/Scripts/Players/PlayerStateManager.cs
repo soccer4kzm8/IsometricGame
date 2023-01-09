@@ -27,7 +27,6 @@ public class PlayerStateManager : MonoBehaviour
         // 体力が0以下になったら、プレイヤーステートをDeadに変更
         _playerHPModel.HP
             .Where(hp => hp <= 0)
-            .Skip(1)
             .Take(1)
             .Subscribe(_ =>
             {
