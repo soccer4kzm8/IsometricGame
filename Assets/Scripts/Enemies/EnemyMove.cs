@@ -6,11 +6,8 @@ using UnityEngine.AI;
 public class EnemyMove : MonoBehaviour
 {
     #region SerializedField
-    [SerializeField] private GameObject _sword;
     [SerializeField] private GameObject _enemyBody;
     [SerializeField] private float _moveSpeed = 1f;
-    [SerializeField] private Animator _playerAnimator;
-    [SerializeField] private GameStateManager _gameStateManager;
     #endregion SerialilzedField
 
     #region private変数
@@ -25,11 +22,19 @@ public class EnemyMove : MonoBehaviour
     /// </summary>
     private bool _duringKnockBack = false;
 
-    private Transform _playerTransform;
+    /// <summary>
+    /// プレイヤーのTransform
+    /// </summary>
+    private Transform _player;
+
+    private GameObject _weapon;
+    private GameStateManager _gameStateManager;
     #endregion private変数
 
     #region 定数
     private const string PLAYER_TAG = "Player";
+    private const string WEAPON_TAG = "Weapon";
+    private const string MANAGER_TAG = "Manager";
     /// <summary>
     /// プレイヤーの攻撃アニメーション名
     /// </summary>
@@ -37,15 +42,17 @@ public class EnemyMove : MonoBehaviour
     #endregion 定数
     private void Start()
     {
-        _playerTransform = GameObject.FindWithTag(PLAYER_TAG).transform;
+        _player = GameObject.FindWithTag(PLAYER_TAG).transform;
+        _weapon = GameObject.FindWithTag(WEAPON_TAG);
+        _gameStateManager = GameObject.FindWithTag(MANAGER_TAG).GetComponent<GameStateManager>();
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
+        var playerAnimator = _player.GetComponent<Animator>();
 
         // 攻撃に当たったとき、NavMeshAgentを止め、攻撃を受けた方向を取得
         _enemyBody.OnTriggerEnterAsObservable()
-            .Where(x => x.gameObject.name == _sword.name)
-            .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
-            //.Where(_ => _gameStateManager.State.Value == GameState.Playing)
+            .Where(x => x.gameObject.name == _weapon.name)
+            .Where(_ => playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
             .Subscribe(_ => 
             {
                 _navMeshAgent.isStopped = true;
@@ -79,7 +86,7 @@ public class EnemyMove : MonoBehaviour
     {
         if(_navMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
         {
-            _navMeshAgent.SetDestination(_playerTransform.position);
+            _navMeshAgent.SetDestination(_player.position);
 		}
     }
 

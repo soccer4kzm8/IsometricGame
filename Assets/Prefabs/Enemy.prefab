@@ -499,12 +499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a56511082a433ee439acfb2e70caaefb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _sword: {fileID: 0}
   _enemyBody: {fileID: 4193434065582562210}
   _moveSpeed: 4
   _playerAnimator: {fileID: 0}
-  _gameStateManager: {fileID: 0}
 --- !u!195 &2680535347274185901
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -539,7 +536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e2327c09563c64e82804c8b3419797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHP: 10
+  _maxHP: 20
 --- !u!114 &7295479499530601806
 MonoBehaviour:
   m_ObjectHideFlags: 0

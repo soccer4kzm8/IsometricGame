@@ -19,11 +19,6 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 	/// 攻撃を受けるパーツ
 	/// </summary>
 	[SerializeField] private GameObject _damagedParts;
-
-	/// <summary>
-	/// 相手のアニメーター
-	/// </summary>
-	[SerializeField] private Animator _opponentAnimator;
     #endregion SerializeField
 
     #region private変数
@@ -60,10 +55,18 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
     /// 相手の攻撃を受けるパーツ
     /// </summary>
     private const string OPPONENT_DAMADED_PART = "Player";
+
+    private const string PLAYER_TAG = "Player";
+
+    /// <summary>
+    /// プレイヤーの攻撃アニメーション名
+    /// </summary>
+    private const string PLAYER_ATTACK = "Attack02_SwordAndShiled";
     #endregion 定数
 
     void Start()
     {
+        var opponentAnimator = GameObject.FindWithTag(PLAYER_TAG).GetComponent<Animator>();
 		_attackRange.OnTriggerStayAsObservable()
 					.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
 					.Where(x => InSightCheck(x, _sightAngle) == true)
@@ -77,7 +80,7 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 			.Subscribe(_ => _inSight.Value = false);
 		_damagedParts.OnTriggerEnterAsObservable()
 			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
-			.Where(_ => _opponentAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
+			.Where(_ => opponentAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
 			.Subscribe(_ => _getHit.Value = true);
 		_damagedParts.OnTriggerExitAsObservable()
 			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
