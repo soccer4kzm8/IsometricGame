@@ -1,4 +1,4 @@
-﻿using UniRx;
+using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,30 +11,44 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private GameObject _body;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private Animator _playerAnimator;
+    [SerializeField] private GameStateManager _gameStateManager;
     #endregion SerialilzedField
 
-    #region private
+    #region private変数
     private NavMeshAgent _navMeshAgent = null;
+    /// <summary>
+    /// ノックバックする方向
+    /// </summary>
     private Vector3 _nockBackVec;
+
     /// <summary>
     /// ノックバック中trueになるフラグ
     /// </summary>
     private bool _duringKnockBack = false;
-    #endregion private
+    #endregion private変数
 
-
+    #region 定数
+    /// <summary>
+    /// プレイヤーの攻撃アニメーション名
+    /// </summary>
+    private const string PLAYER_ATTACK = "Attack02_SwordAndShiled";
+    #endregion 定数
     private void Start()
     {
         _navMeshAgent = this.GetComponent<NavMeshAgent>();
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
+
+        // 攻撃に当たったとき、NavMeshAgentを止め、攻撃を受けた方向を取得
         _body.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
-            .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack02_SwordAndShiled") == true)
+            .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
+            //.Where(_ => _gameStateManager.State.Value == GameState.Playing)
             .Subscribe(_ => 
             {
                 _navMeshAgent.isStopped = true;
                 _nockBackVec = Vector3.back;
             });
+        // ノックバックのアニメーションが終了したらNavMeshAgentを再開
         this.UpdateAsObservable()
             .Where(_ => _duringKnockBack == true)
             .Where(_ => enemyAnimation.AnimationGetHit.Value == false)
@@ -43,9 +57,18 @@ public class EnemyMove : MonoBehaviour
                 _navMeshAgent.isStopped = false;
                 _duringKnockBack = false;
             });
+        // ノックバックのアニメーションが流れている間、ノックバックし続ける
         this.UpdateAsObservable()
             .Where(_ => enemyAnimation.AnimationGetHit.Value == true)
             .Subscribe(_ => KnockBack());
+        // リザルト画面が表示されたらNavMeshAgentを止める
+        _gameStateManager.State
+            .Where(state => state == GameState.Result)
+            .Subscribe(_ => 
+            {
+                _navMeshAgent.isStopped = true;
+            })
+            .AddTo(this);
     }
 
 
@@ -57,6 +80,9 @@ public class EnemyMove : MonoBehaviour
 		}
     }
 
+    /// <summary>
+    /// ノックバック
+    /// </summary>
     private void KnockBack()
 	{
         this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
