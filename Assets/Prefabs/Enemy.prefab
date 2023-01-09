@@ -501,9 +501,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
   _sword: {fileID: 0}
-  _body: {fileID: 4193434065582562210}
-  _moveSpeed: 1
+  _enemyBody: {fileID: 4193434065582562210}
+  _moveSpeed: 4
   _playerAnimator: {fileID: 0}
+  _gameStateManager: {fileID: 0}
 --- !u!195 &2680535347274185901
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -552,8 +553,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRange: {fileID: 4195092064958670934}
-  _opponentAttackParts: {fileID: 0}
-  _opponentDamagedParts: {fileID: 0}
   _sightAngle: 45
   _damagedParts: {fileID: 4193434065582562210}
   _opponentAnimator: {fileID: 0}

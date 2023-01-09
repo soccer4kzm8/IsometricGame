@@ -8,7 +8,7 @@ public class EnemyMove : MonoBehaviour
     #region SerializedField
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _sword;
-    [SerializeField] private GameObject _body;
+    [SerializeField] private GameObject _enemyBody;
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private Animator _playerAnimator;
     [SerializeField] private GameStateManager _gameStateManager;
@@ -39,7 +39,7 @@ public class EnemyMove : MonoBehaviour
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
 
         // 攻撃に当たったとき、NavMeshAgentを止め、攻撃を受けた方向を取得
-        _body.OnTriggerEnterAsObservable()
+        _enemyBody.OnTriggerEnterAsObservable()
             .Where(x => x.gameObject.name == _sword.name)
             .Where(_ => _playerAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
             //.Where(_ => _gameStateManager.State.Value == GameState.Playing)
