@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 6624718059860375207}
   - component: {fileID: 2769329082606667527}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyBody: {fileID: 4193434065582562210}
   _moveSpeed: 4
-  _playerAnimator: {fileID: 0}
 --- !u!195 &2680535347274185901
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -552,7 +551,6 @@ MonoBehaviour:
   _attackRange: {fileID: 4195092064958670934}
   _sightAngle: 45
   _damagedParts: {fileID: 4193434065582562210}
-  _opponentAnimator: {fileID: 0}
 --- !u!114 &6971700181751000065
 MonoBehaviour:
   m_ObjectHideFlags: 0

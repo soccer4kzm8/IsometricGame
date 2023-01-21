@@ -2,9 +2,9 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class EnemyCore : MonoBehaviour
+public class EnemyCore : MonoBehaviour, IEnemyCore
 {
-    void Start()
+    public void Initialize()
     {
         var enemyAnimation = this.GetComponent<EnemyAnimation>();
         // 死亡アニメーション終了後、自身を消す
