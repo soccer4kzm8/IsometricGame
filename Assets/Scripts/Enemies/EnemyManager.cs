@@ -24,6 +24,11 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(EnemySpawnCoroutine());
     }
 
+    public void ResetEnemies()
+    {
+        StopAllCoroutines();
+    }
+
     /// <summary>
     /// 定期的に敵を生成するコルーチン
     /// </summary>

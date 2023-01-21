@@ -1666,6 +1666,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerStateManager: {fileID: 6134730218629258421}
+  _enemyManager: {fileID: 1802375440}
 --- !u!4 &1802375439
 Transform:
   m_ObjectHideFlags: 0
@@ -1695,6 +1696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemySpawnPoints:
   - {fileID: 30845628}
+  - {fileID: 1331795700}
   _enemyFactories:
   - {fileID: 58254102}
   _enemySpawnInterval: 10

@@ -5,6 +5,7 @@ public class GameStateManager : MonoBehaviour
 {
     #region SerializeField
     [SerializeField] private PlayerStateManager _playerStateManager;
+    [SerializeField] private EnemyManager _enemyManager;
     #endregion SerializeField
 
     #region private変数
@@ -30,6 +31,7 @@ public class GameStateManager : MonoBehaviour
             .Where(state => state == PlayerState.Dead)
             .Subscribe(_ =>
             {
+                _enemyManager.ResetEnemies();
                 _state.Value = GameState.Result;
             })
             .AddTo(this);
