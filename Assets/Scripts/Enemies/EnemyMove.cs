@@ -7,7 +7,7 @@ public class EnemyMove : MonoBehaviour
 {
     #region SerializedField
     [SerializeField] private GameObject _enemyBody;
-    [SerializeField] private float _moveSpeed = 1f;
+    [SerializeField] private float _knockBackSpeed = 1f;
     #endregion SerialilzedField
 
     #region private変数
@@ -95,7 +95,7 @@ public class EnemyMove : MonoBehaviour
     /// </summary>
     private void KnockBack()
 	{
-        this.transform.Translate(_moveSpeed * Time.deltaTime * _nockBackVec);
+        this.transform.Translate(_knockBackSpeed * Time.deltaTime * _nockBackVec);
         _duringKnockBack = true;
     }
 }
