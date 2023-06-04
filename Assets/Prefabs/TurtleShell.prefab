@@ -520,7 +520,7 @@ NavMeshAgent:
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyBody: {fileID: 5724291521989182496}
-  _moveSpeed: 3
+  _knockBackDistance: 2
 --- !u!114 &8011914936026835373
 MonoBehaviour:
   m_ObjectHideFlags: 0
