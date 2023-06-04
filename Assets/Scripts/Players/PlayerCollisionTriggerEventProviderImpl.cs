@@ -50,6 +50,8 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
     /// 相手の攻撃を受けるパーツ
     /// </summary>
     private const string OPPONENT_DAMADED_PART = "Body";
+
+    private const string ATTACK = "Attack02";
     #endregion 定数
 
     void Start()
@@ -88,11 +90,13 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
                 _inSight.Value = false;
             });
 
-        // プレイヤー自身に敵の攻撃パーツがあったかどうか
+        // プレイヤー自身に敵の攻撃パーツが当たったどうか
+        // 敵が攻撃アニメーション中かどうか
 		this.OnCollisionEnterAsObservable()
 			.Where(collision => collision.gameObject.name == OPPONENT_ATTACK_PART)
             .Where(collision => IsDeadCheck(collision.transform.parent.GetComponent<EnemyStateManager>()) == false)
-			.Subscribe(_ => 
+            .Where(collision => collision.transform.parent.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(ATTACK))
+            .Subscribe(collision => 
             {
                 _getHit.Value = true;
             });
@@ -101,13 +105,13 @@ public class PlayerCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEve
 			.Subscribe(_ => _getHit.Value = false);
 	}
 
-	/// <summary>
-	/// 当たったオブジェクトが視界内かどうか
-	/// </summary>
-	/// <param name="collider">当たったオブジェクトのcollider</param>
-	/// <param name="sightAngle">視界角度</param>
-	/// <returns></returns>
-	private bool InSightCheck(Collider collider, float sightAngle)
+    /// <summary>
+    /// 当たったオブジェクトが視界内かどうか
+    /// </summary>
+    /// <param name="collider">当たったオブジェクトのcollider</param>
+    /// <param name="sightAngle">視界角度</param>
+    /// <returns></returns>
+    private bool InSightCheck(Collider collider, float sightAngle)
 	{
 		Vector3 posDelta = collider.transform.position - this.transform.position;
 		float targetAngle = Vector3.Angle(this.transform.forward, posDelta);
