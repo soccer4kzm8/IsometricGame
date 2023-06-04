@@ -78,7 +78,11 @@ public class EnemyCollisionTriggerEventProviderImpl : MonoBehaviour, IGetHitEven
 		_attackRange.OnTriggerExitAsObservable()
 			.Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
 			.Subscribe(_ => _inSight.Value = false);
-		_damagedParts.OnTriggerEnterAsObservable()
+        _attackRange.OnTriggerExitAsObservable()
+            .Where(x => x.gameObject.name == OPPONENT_DAMADED_PART)
+            .Where(x => x.gameObject.GetComponent<PlayerStateManager>().State.Value == PlayerState.Dead)
+            .Subscribe(_ => _inSight.Value = false);
+        _damagedParts.OnTriggerEnterAsObservable()
 			.Where(x => x.gameObject.name == OPPONENT_ATTACK_PART)
 			.Where(_ => opponentAnimator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_ATTACK) == true)
 			.Subscribe(_ => _getHit.Value = true);
